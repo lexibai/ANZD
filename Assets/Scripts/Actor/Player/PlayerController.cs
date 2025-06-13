@@ -1,0 +1,118 @@
+using Model.Skill;
+using Model.Skill.Impl;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    /// <summary>
+    /// 武器的ik节点
+    /// </summary>
+    public Transform WeaponIkTransform;
+    
+    /// <summary>
+    /// 头部的ik节点
+    /// </summary>
+    public Transform HeadIkTransform;
+
+    /// <summary>
+    /// 武器运动的圆心
+    /// </summary>
+    public Transform centerOfCircle;
+
+    public PlayerObj playobj;
+    
+    /// <summary>
+    /// 移动向量
+    /// </summary>
+    public Vector2 movement;
+
+    public Animator animator;
+
+    public Skill skill1;
+
+
+    //发射间隔
+    public float launchInterval = 0;
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        playobj = GetComponent<PlayerObj>();
+        skill1 = new fireSkill();
+    }
+
+    // Update is called once per frame 
+    void Update()
+    {
+        
+        transform.Translate(movement*Vector2.one * (10 * Time.deltaTime));
+        print(movement);
+        if (movement.x == 0 && movement.y != 0)
+        {
+            animator.SetInteger("speed", Mathf.Abs(Mathf.RoundToInt(movement.y)));
+        }
+        else
+        {
+            animator.SetInteger("speed", Mathf.RoundToInt(movement.x*transform.localScale.x));
+        }
+    }
+
+
+    /// <summary>
+    /// 指向鼠标方型
+    /// </summary>
+    /// <param name="ctx"></param>
+    public void Look(InputAction.CallbackContext ctx)
+    {
+        if (Camera.main == null)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        var mouseScreenPos = ctx.ReadValue<Vector2>();
+        var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0));
+        mousePos.z = 0;
+        
+        if (transform.position.x <= mousePos.x)
+        {
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.y);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.y);
+        }
+        
+        float radius = 1.2f; // 圆的半径
+        Vector3 direction = mousePos - centerOfCircle.position;
+        direction = Vector3.ClampMagnitude(direction, radius);
+        WeaponIkTransform.position = centerOfCircle.position + direction;
+
+        HeadIkTransform.position = mousePos;
+
+    }
+
+    /// <summary>
+    /// 控制人物移动
+    /// </summary>
+    /// <param name="ctx"></param>
+    public void Move(InputAction.CallbackContext ctx)
+    {
+            var readValue = ctx.ReadValue<Vector2>();
+            movement = readValue.normalized;
+    }
+
+    public void Fire(InputAction.CallbackContext ctx)
+    {
+        if(ctx.phase == InputActionPhase.Performed)
+            skill1.UseSkill(playobj);
+        print("按下");
+        if (launchInterval < 0)
+        {
+            skill1.UseSkill(playobj);
+            launchInterval = 0.2f;
+        }
+        launchInterval -= Time.deltaTime;
+    }
+}

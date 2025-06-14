@@ -30,7 +30,7 @@ namespace Bullet
 
         private void Update()
         {
-            transform.Translate(Vector3.right * (Time.deltaTime * 10));
+            transform.Translate(Vector3.right * (Time.deltaTime * bulletData.moveSpeed));
             
             //检测是否离开屏幕
             var worldToScreenPoint = Camera.main.WorldToScreenPoint(transform.position);

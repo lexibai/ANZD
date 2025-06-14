@@ -18,5 +18,9 @@ namespace Model.Skill
 
         public SkillData skillData { get; set; } = new SkillData();
         public abstract void UseSkill(ActorObj userObj);
+        public virtual void Init(SkillData skillData)
+        {
+            this.skillData = skillData;
+        }
     }
 }

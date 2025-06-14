@@ -1,10 +1,13 @@
+using Const;
+using DefaultNamespace;
 using Model.Skill;
 using Model.Skill.Impl;
 using Model.Skill.Impl.Move;
+using QFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IController
 {
     /// <summary>
     /// 武器的ik节点
@@ -42,8 +45,8 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playobj = GetComponent<PlayerObj>();
-        fireSkill = new fireSkill();
-        moveSkill = new SpeedUpSkill();
+        fireSkill = this.GetSystem<SkillFactory>().CreateSkill(SkillModelAssets.普通奥术射击);
+        moveSkill = this.GetSystem<SkillFactory>().CreateSkill(SkillModelAssets.加速移动);
         
     }
 
@@ -125,5 +128,10 @@ public class PlayerController : MonoBehaviour
         if(ctx.phase == InputActionPhase.Performed)
             moveSkill.UseSkill(playobj);
         print("按下");
+    }
+
+    public IArchitecture GetArchitecture()
+    {
+        return GameArch.Interface;
     }
 }

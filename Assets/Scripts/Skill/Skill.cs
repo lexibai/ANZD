@@ -7,7 +7,13 @@ namespace Model.Skill
     public interface Skill:ICloneable
     {
         public SkillData skillData { get; set; }
-        public void UseSkill(ActorObj userObj);
         
+        /// <summary>
+        /// 使用技能
+        /// </summary>
+        /// <param name="userObj"></param>
+        void UseSkill(ActorObj userObj);
+
+        void Init(SkillData skillData);
     }
 }

@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Model.Skill.Impl
 {
-    public class fireSkill : AbstractSkill
+    public class FireSkill : AbstractSkill
     {
 
         public override void UseSkill(ActorObj userObj)

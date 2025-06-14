@@ -1,5 +1,6 @@
 ﻿using Buff;
 using Combat;
+using Model.Skill;
 using QFramework;
 using Tool;
 
@@ -9,11 +10,14 @@ namespace DefaultNamespace
     {
         protected override void Init()
         {
-            //buff模块
+            //buff模型
             RegisterModel<BuffModel>(new BuffModel());
+            //技能模型
+            RegisterModel<SkillModel>(new SkillModel());
             
             // 战斗系统
             RegisterSystem<CombatMgr>(new CombatMgr());
+            RegisterSystem<SkillFactory>(new SkillFactory());
             
             // 持久化工具
             RegisterUtility<BinaryStorageUtility>(new BinaryStorageUtility());

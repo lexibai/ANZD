@@ -1,7 +1,7 @@
 ﻿using Actor;
 using QFramework;
 
-namespace DefaultNamespace.Buff.Command
+namespace Buff.Command
 {
     public class AddBuffCommand<T> : AbstractCommand where T : BaseBuffObj, new()
     {

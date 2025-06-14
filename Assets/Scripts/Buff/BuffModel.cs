@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using QFramework;
 using Tool;
 
-namespace DefaultNamespace.Buff
+namespace Buff
 {
     [Serializable]
     public class BuffModel:AbstractModel
@@ -18,6 +18,16 @@ namespace DefaultNamespace.Buff
         public void Save()
         {
             this.GetUtility<BinaryStorageUtility>().Save<BuffModel>(this, nameof(BuffModel), true);
+        }
+
+        /// <summary>
+        /// 根据buffLiteralQuantity获取buffData
+        /// </summary>
+        /// <param name="buffLiteralQuantity"></param>
+        /// <returns></returns>
+        public BuffData SelectBuffData(string buffLiteralQuantity)
+        {
+            return data.Find(x => x.buffLiteralQuantity == buffLiteralQuantity);
         }
     }
 }

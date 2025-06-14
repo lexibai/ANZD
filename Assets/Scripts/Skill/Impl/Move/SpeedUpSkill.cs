@@ -1,7 +1,7 @@
 ﻿using Actor;
+using Buff;
+using Buff.Command;
 using DefaultNamespace;
-using DefaultNamespace.Buff;
-using DefaultNamespace.Buff.Command;
 using DG.Tweening;
 using QFramework;
 using UnityEngine;
@@ -14,28 +14,7 @@ namespace Model.Skill.Impl.Move
         
         public override void UseSkill(ActorObj userObj)
         {
-            var buffData = new BuffData
-            {
-                id = Random.Range(-1000000000, 0),
-                name = null,
-                priority = 20,
-                duration = 0.1f,
-                tickTime = 0,
-                canPermanent = false,
-                resetDuration = false,
-                addDuration = false,
-                maxCount = 1,
-                tags = null,
-                addAttrs = new ActorBaseData[]
-                {
-                    new ActorBaseData()
-                    {
-                        moveSpeed = 50
-                    },
-                    new ActorBaseData()
-                }
-            };
-            
+            var buffData = this.GetModel<BuffModel>().SelectBuffData(BuffAssets.技能临时加速);
             this.SendCommand<AddBuffCommand<BaseBuffObj>>(new AddBuffCommand<BaseBuffObj>(userObj, buffData));
             
             //创建拖影

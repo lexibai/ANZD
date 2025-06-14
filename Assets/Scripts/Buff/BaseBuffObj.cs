@@ -2,7 +2,7 @@
 using Actor;
 using UnityEngine;
 
-namespace DefaultNamespace.Buff
+namespace Buff
 {
     public class BaseBuffObj
     {

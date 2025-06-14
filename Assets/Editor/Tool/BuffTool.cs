@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using Buff;
 using DefaultNamespace;
-using DefaultNamespace.Buff;
 using QFramework;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -30,6 +31,24 @@ namespace Editor.Tool
         {
             this.GetModel<BuffModel>().data = buffDatas;
             this.GetModel<BuffModel>().Save();
+        }
+        
+        [ButtonGroup("操作"), Button("生成常量")]
+        public void Generate()
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("namespace Buff");
+            sb.AppendLine("{");
+            sb.AppendLine("    public class BuffAssets");
+            sb.AppendLine("    {");
+            foreach (var buffData in buffDatas)
+            {
+                sb.AppendLine($"        public const string {buffData.buffLiteralQuantity} = \"{buffData.buffLiteralQuantity}\";");
+            }
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+            File.WriteAllText("Assets/Scripts/Buff/BuffAssets.cs", sb.ToString());
+            AssetDatabase.Refresh(); // 刷新资源数据库使新脚本生效
         }
 
         public IArchitecture GetArchitecture()

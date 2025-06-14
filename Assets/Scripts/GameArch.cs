@@ -1,5 +1,5 @@
-﻿using Combat;
-using DefaultNamespace.Buff;
+﻿using Buff;
+using Combat;
 using QFramework;
 using Tool;
 

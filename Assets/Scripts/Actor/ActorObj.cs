@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Buff;
 using Bullet;
 using DefaultNamespace;
-using DefaultNamespace.Buff;
 using Model.Skill;
 using QFramework;
 using UnityEngine;

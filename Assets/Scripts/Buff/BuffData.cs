@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Actor;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
-namespace DefaultNamespace.Buff
+namespace Buff
 {
     
     [Serializable]
@@ -14,6 +13,12 @@ namespace DefaultNamespace.Buff
 
         [LabelText("名称")]
         public string name;
+        
+        /// <summary>
+        /// buff字面量, 要求buff中唯一
+        /// </summary>
+        [LabelText("字面量")]
+        public string buffLiteralQuantity;
         
         /// <summary>
         /// 优先级

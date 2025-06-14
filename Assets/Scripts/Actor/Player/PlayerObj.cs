@@ -20,17 +20,18 @@ public class PlayerObj : ActorObj
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        actorData.hp = 100;
-        actorData.nowHp = 100;
-        actorData.attack = 10;
-        actorData.defense = 5;
-        actorData.moveSpeed = 10;
+        originalActorData.hp = 100;
+        originalActorData.nowHp = 100;
+        originalActorData.attack = 10;
+        originalActorData.defense = 5;
+        originalActorData.moveSpeed = 10;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if (actorData.nowHp > 0)
+        base.Update();
+        if (originalActorData.nowHp > 0)
         {
             spawnInterval -= Time.deltaTime;
             if (spawnInterval <= 0)
@@ -43,7 +44,7 @@ public class PlayerObj : ActorObj
         }
     }
 
-    public Transform GetFireTransform()
+    public override Transform GetFireTransform()
     {
         return FirePos;
     }

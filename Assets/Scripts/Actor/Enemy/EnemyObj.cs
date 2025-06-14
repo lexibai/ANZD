@@ -11,16 +11,17 @@ public class EnemyObj : ActorObj
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        actorData.hp = 30;
-        actorData.nowHp = 30;
-        actorData.attack = 10;
-        actorData.defense = 5;
-        actorData.moveSpeed = 5;
+        originalActorData.hp = 30;
+        originalActorData.nowHp = 30;
+        originalActorData.attack = 10;
+        originalActorData.defense = 5;
+        originalActorData.moveSpeed = 5;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         var playerObj = PlayerObj.Instance;
         if (playerObj != null)
         {
@@ -56,5 +57,10 @@ public class EnemyObj : ActorObj
     public override void OnHeal(int hp)
     {
         
+    }
+
+    public override Transform GetFireTransform()
+    {
+        return transform;
     }
 }

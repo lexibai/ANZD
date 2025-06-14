@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bullet;
 using DefaultNamespace;
+using DefaultNamespace.Buff;
 using Model.Skill;
 using QFramework;
 using UnityEngine;
@@ -11,11 +13,22 @@ namespace Actor
     public abstract class ActorObj : MonoBehaviour, IController
     {
         //角色数据
-        public ActorData actorData = new ActorData();
+        public ActorBaseData actorData => ComputationalAttr();
+        public ActorData originalActorData = new ActorData();
         
         //角色状态
         public ActorState actorState = new ActorState();
         
+        public List<BaseBuffObj> buffs = new List<BaseBuffObj>();
+
+        protected virtual void Update()
+        {
+            foreach (var buff in buffs.ToArray())
+            {
+                buff?.run();
+            }
+        }
+
         /// <summary>
         /// 被击中后触发
         /// </summary>
@@ -39,9 +52,25 @@ namespace Actor
         /// 恢复生命调用
         /// </summary>
         public abstract void OnHeal(int hp);
+
+
+        private ActorData ComputationalAttr()
+        {
+            var actorData = (ActorData)originalActorData.Clone();
+            foreach (var baseBuffObj in buffs)
+            {
+                var addAttr = baseBuffObj.buffData.addAttrs[0];
+                var mulAttr = baseBuffObj.buffData.addAttrs[1];
+                actorData = (actorData + addAttr) * mulAttr;
+            }
+            return actorData;
+        }
+        
         public IArchitecture GetArchitecture()
         {
             return GameArch.Interface;
         }
+
+        public abstract Transform GetFireTransform();
     }
 }

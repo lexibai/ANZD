@@ -45,14 +45,14 @@ namespace Combat
             baseDamage = Math.Clamp(baseDamage, 1, baseDamage);
 
             // 造成伤害并触发回调
-            target.actorData.nowHp -= (int)baseDamage;
+            target.originalActorData.nowHp -= (int)baseDamage;
             target.OnTakeDamage(attacker, skill, bullet);
             if (!ReferenceEquals(attacker, null))
             {
                 attacker.OnHit(target);
             }
 
-            if (target.actorData.nowHp <= 0)
+            if (target.originalActorData.nowHp <= 0)
             {
                 target.OnDeath();
             }

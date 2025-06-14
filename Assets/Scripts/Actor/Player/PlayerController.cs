@@ -1,5 +1,6 @@
 using Model.Skill;
 using Model.Skill.Impl;
+using Model.Skill.Impl.Move;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
-    public Skill skill1;
+    public Skill fireSkill;
+    public Skill moveSkill;
 
 
     //发射间隔
@@ -40,14 +42,16 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playobj = GetComponent<PlayerObj>();
-        skill1 = new fireSkill();
+        fireSkill = new fireSkill();
+        moveSkill = new SpeedUpSkill();
+        
     }
 
     // Update is called once per frame 
     void Update()
     {
         
-        transform.Translate(movement*Vector2.one * (10 * Time.deltaTime));
+        transform.Translate(movement*Vector2.one * (playobj.actorData.moveSpeed * Time.deltaTime));
         print(movement);
         if (movement.x == 0 && movement.y != 0)
         {
@@ -106,13 +110,20 @@ public class PlayerController : MonoBehaviour
     public void Fire(InputAction.CallbackContext ctx)
     {
         if(ctx.phase == InputActionPhase.Performed)
-            skill1.UseSkill(playobj);
+            fireSkill.UseSkill(playobj);
         print("按下");
         if (launchInterval < 0)
         {
-            skill1.UseSkill(playobj);
+            fireSkill.UseSkill(playobj);
             launchInterval = 0.2f;
         }
         launchInterval -= Time.deltaTime;
+    }
+    
+    public void MoveSkill(InputAction.CallbackContext ctx)
+    {
+        if(ctx.phase == InputActionPhase.Performed)
+            moveSkill.UseSkill(playobj);
+        print("按下");
     }
 }

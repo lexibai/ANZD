@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Resources;
+using Actor;
 using Bullet;
 using QFramework;
 using UnityEngine;
@@ -8,11 +9,10 @@ using Object = UnityEngine.Object;
 
 namespace Model.Skill.Impl
 {
-    public class fireSkill : Skill
+    public class fireSkill : AbstractSkill
     {
-        public SkillData skillData { get; set; } = new SkillData();
 
-        public void UseSkill(PlayerObj playerObj)
+        public override void UseSkill(ActorObj userObj)
         {
             ActionKit.Sequence()
                 .Delay(0.1f)
@@ -20,10 +20,10 @@ namespace Model.Skill.Impl
                 {
                     //这里实例化子弹
                     var gameObject = Resources.Load<GameObject>("bullet");
-                    var but = Object.Instantiate(gameObject, playerObj.GetFireTransform().position, Quaternion.identity);
+                    var but = Object.Instantiate(gameObject, userObj.GetFireTransform().position, Quaternion.identity);
                     but.AddComponent<CircleCollider2D>();
                     but.GetComponent<BulletObj>().skill = this.Clone() as Skill;
-                    but.GetComponent<BulletObj>().attacker = playerObj;
+                    but.GetComponent<BulletObj>().attacker = userObj;
                     var positionValue = Mouse.current.position.value;
                     var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
                     screenToWorldPoint.z = 0;
@@ -35,12 +35,8 @@ namespace Model.Skill.Impl
                 }).Delay(3f).Callback(() =>
                 {
                 })
-                .Start(playerObj);
+                .Start(userObj);
         }
 
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
     }
 }

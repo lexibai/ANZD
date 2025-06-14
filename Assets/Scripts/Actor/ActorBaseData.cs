@@ -5,6 +5,8 @@ namespace Actor
     [Serializable]
     public class ActorBaseData: ICloneable
     {
+        //tip: 此处新增变量, 必须修改对应子类的重载计算方法!!!
+        
         // hp总量
         public int hp;
         
@@ -21,5 +23,7 @@ namespace Actor
         {
             return MemberwiseClone();
         }
+        
+        
     }
 }

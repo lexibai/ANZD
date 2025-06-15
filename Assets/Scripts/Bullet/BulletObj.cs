@@ -58,7 +58,6 @@ namespace Bullet
             if (hitCollider != null)
             {
                 hitCollider.isTrigger = true;
-
             }
         }
 
@@ -67,8 +66,17 @@ namespace Bullet
             transform.Translate(Vector3.right * (Time.deltaTime * bulletData.moveSpeed));
 
             #region 追踪
-            bulletData.trackingTime -= Time.deltaTime;
-            if (bulletData.canTracking && !bulletData.selectTarget && bulletData.trackingTime > 0)
+
+            if (bulletData.canTracking)
+            {
+                bulletData.trackingStartTime -= Time.deltaTime;
+                if (bulletData.trackingStartTime < 0)
+                {
+                    bulletData.trackingTime -= Time.deltaTime;
+                }
+            }
+            
+            if (bulletData.canTracking && !bulletData.selectTarget && bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0)
             {
                 //圆形检测
                 var overlapCircleAll = Physics2D.OverlapCircleAll(transform.position, 25f);
@@ -90,7 +98,7 @@ namespace Bullet
                 }
             }
 
-            if (bulletData.selectTarget && bulletData.trackingTime > 0)
+            if (bulletData.selectTarget && bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0)
             {
                 Vector2 targetPos = bulletData.selectTarget.transform.position;
                 Vector2 dir = targetPos - (Vector2)transform.position;

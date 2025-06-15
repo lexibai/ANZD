@@ -23,20 +23,29 @@ namespace Bullet
                 return bullet;
             }, o =>
             {
+                //移除碰撞组件
+                Object.Destroy(o.GetComponent<Collider2D>());
+                
                 o.SetActive(false);
             }, 50);
         }
         
         public BulletObj CreateBullet(BulletData data, ActorObj attacker=null, Skill skill=null)
         { 
-            //var but = Object.Instantiate(bulletPrefab);
             var but = bulletPool.Allocate();
-            but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
-            but.AddComponent<CircleCollider2D>();
+            
+            // 子弹运行时类设置
             var bulletObj = but.GetComponent<BulletObj>();
             bulletObj.skill = skill?.Clone() as Skill;
             bulletObj.attacker = attacker;
             bulletObj.bulletData = data.Clone() as BulletData;
+            
+            // 子弹实体设置
+            but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
+            but.AddComponent<PolygonCollider2D>();
+            var sprite = but.GetComponent<SpriteRenderer>();
+            sprite.sprite = rl.LoadSync<Sprite>(data.spriteAss);
+            sprite.color = data.color;
             but.SetActive(true);
             return bulletObj;
         }

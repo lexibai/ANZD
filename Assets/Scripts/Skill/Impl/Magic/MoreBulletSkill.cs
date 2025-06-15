@@ -14,7 +14,9 @@ namespace Model.Skill.Impl.Magic
                 //这里实例化子弹
                 var but = BulletFactory.Instance.CreateBullet(new BulletData()
                 {
-                    canTracking = true
+                    canTracking = true,
+                    spriteAss = QAssetBundle.Bulletsprite.RHOMBIC,
+                    color = Color.green
                 }, userObj, this);
                 var positionValue = Mouse.current.position.value;
                 var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));

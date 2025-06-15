@@ -16,4 +16,10 @@ namespace QAssetBundle
         public const string BundleName = "bullet_prefab";
         public const string BULLET = "bullet";
     }
+    public class Bulletsprite
+    {
+        public const string BundleName = "bulletsprite";
+        public const string CIRCLE = "Circle";
+        public const string RHOMBIC = "Rhombic";
+    }
 }

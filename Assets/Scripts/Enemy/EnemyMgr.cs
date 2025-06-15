@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QFramework;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,14 +11,18 @@ namespace Actor.Enemy
         //生成怪物间隔
         public float spawnInterval = 1;
 
+        /// <summary>
+        /// 怪物预制体
+        /// </summary>
         private GameObject enemyPrefab;
+        
+        public List<EnemyGenerateInfo> enemyGenerateInfos = new();
 
         /// <summary>
         /// 初始化, 用于唤出管理器
         /// </summary>
         public void Init()
         {
-            
         }
         
         private void Awake()
@@ -30,8 +35,14 @@ namespace Actor.Enemy
             spawnInterval -= Time.deltaTime;
             if (spawnInterval <= 0)
             {
+                var enemyP = RandomEnemyP();
+                if (enemyP == null)
+                {
+                    return;
+                }
+
                 spawnInterval = Random.Range(0.1f, 0.5f);
-                var enemyObj = Instantiate(enemyPrefab);
+                var enemyObj = Instantiate(enemyP);
 
                 // 获取摄像机的正交视角尺寸和屏幕宽高比
                 float halfWidth = Camera.main.orthographicSize * Camera.main.aspect;
@@ -63,6 +74,36 @@ namespace Actor.Enemy
 
                 enemyObj.transform.position = new Vector3(spawnX, spawnY, 0);
             }
+        }
+
+        public void AddEnemyInfo(EnemyGenerateInfo enemyGenerateInfo)
+        {
+            enemyGenerateInfos.Add(enemyGenerateInfo);
+        }
+
+        private GameObject RandomEnemyP()
+        {
+            if (enemyGenerateInfos.Count == 0)
+            {
+                return null;
+            }
+            
+            //随机选择一个怪物预制体
+            var enemyGenerateInfo = enemyGenerateInfos[Random.Range(0, enemyGenerateInfos.Count)];
+            var enemyP = enemyGenerateInfo.prefab;
+
+            if (enemyP == null)
+            {
+                return null;
+            }
+            
+            enemyGenerateInfo.num--;
+            if (enemyGenerateInfo.num <= 0)
+            {
+                enemyGenerateInfos.Remove(enemyGenerateInfo);
+            }
+
+            return enemyP;
         }
     }
 }

@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour, IController
     {
         animator = GetComponent<Animator>();
         playobj = GetComponent<PlayerObj>();
-        fireSkill = this.GetSystem<SkillFactory>().CreateSkill(SkillModelAssets.普通奥术射击);
-        moveSkill = this.GetSystem<SkillFactory>().CreateSkill(SkillModelAssets.加速移动);
+        fireSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通奥术射击);
+        moveSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.加速移动);
         
     }
 
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         
         transform.Translate(movement*Vector2.one * (playobj.actorData.moveSpeed * Time.deltaTime));
-        print(movement);
+        // print(movement);
         if (movement.x == 0 && movement.y != 0)
         {
             animator.SetInteger("speed", Mathf.Abs(Mathf.RoundToInt(movement.y)));

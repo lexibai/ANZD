@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using Const;
+using DefaultNamespace;
 using Model.Skill.Impl;
 using Model.Skill.Impl.Move;
 using QFramework;
 
 namespace Model.Skill
 {
-    public class SkillFactory:AbstractSystem
+    public class SkillFactory:Singleton<SkillFactory>, ICanGetModel
     {
-        public readonly Dictionary<string, Type> skillMapping = new Dictionary<string, Type>()
+        private SkillFactory()
+        {
+        }
+
+        private readonly Dictionary<string, Type> skillMapping = new Dictionary<string, Type>()
         {
             {SkillModelAssets.普通奥术射击, typeof(FireSkill)},
             {SkillModelAssets.加速移动, typeof(SpeedUpSkill)},
@@ -27,9 +32,9 @@ namespace Model.Skill
             return null;
         }
 
-        protected override void OnInit()
+        public IArchitecture GetArchitecture()
         {
-            
+            return GameArch.Interface;
         }
     }
 }

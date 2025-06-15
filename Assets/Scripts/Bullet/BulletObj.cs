@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Actor;
 using Combat.Command;
 using DefaultNamespace;
@@ -14,6 +16,7 @@ namespace Bullet
         [FormerlySerializedAs("collider")] public Collider2D hitCollider;
         public Skill skill;
         public ActorObj attacker;
+        private Coroutine destroyRoutine;
         public BulletData bulletData = new BulletData();
         
         private void Awake()
@@ -24,6 +27,7 @@ namespace Bullet
 
         private void Start()
         {
+            destroyRoutine = StartCoroutine(DestroyAfterDelay(bulletData.lifeTime));
             hitCollider = this.gameObject.GetComponent<Collider2D>();
             hitCollider.isTrigger = true;
         }
@@ -31,16 +35,6 @@ namespace Bullet
         private void Update()
         {
             transform.Translate(Vector3.right * (Time.deltaTime * bulletData.moveSpeed));
-            
-            //检测是否离开屏幕
-            var worldToScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-            if (worldToScreenPoint.x > Screen.width
-                || worldToScreenPoint.x < 0 
-                || worldToScreenPoint.y > Screen.height 
-                || worldToScreenPoint.y < 0)
-            {
-                Destroy(this.gameObject);
-            }
         }
         
         private void OnTriggerStay2D(Collider2D other)
@@ -55,10 +49,28 @@ namespace Bullet
                 this.SendCommand<DamageCommand>(new DamageCommand(attacker, other.gameObject.GetComponent<ActorObj>(), skill, this));
             }
         }
+        
+        private IEnumerator DestroyAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+            }
+        }
 
+        private void OnDestroy()
+        {
+            if (destroyRoutine != null)
+            {
+                StopCoroutine(destroyRoutine);
+            }
+        }
         public IArchitecture GetArchitecture()
         {
             return GameArch.Interface;
         }
+        
+        
     }
 }

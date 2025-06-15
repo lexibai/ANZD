@@ -1,3 +1,5 @@
+using System;
+using Combat.Command;
 using Const;
 using DefaultNamespace;
 using Model.Skill;
@@ -9,6 +11,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IController
 {
+    // 输入控制类的实例  
+    private PlayerAction playerAction;  
+    
     /// <summary>
     /// 武器的ik节点
     /// </summary>
@@ -33,13 +38,16 @@ public class PlayerController : MonoBehaviour, IController
 
     public Animator animator;
 
+    public bool fireSwitch = false;
+    
     public Skill fireSkill;
     public Skill moveSkill;
 
+    private void Awake()
+    {
+        playerAction  = new PlayerAction();
+    }
 
-    //发射间隔
-    public float launchInterval = 0;
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,7 +55,16 @@ public class PlayerController : MonoBehaviour, IController
         playobj = GetComponent<PlayerObj>();
         fireSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通奥术射击);
         moveSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.加速移动);
-        
+    }
+
+    private void OnEnable()
+    {
+        playerAction.DefMaps.Look.performed += Look;
+        playerAction.DefMaps.Move.performed += Move;
+        playerAction.DefMaps.Fire.started += FireStart;
+        playerAction.DefMaps.Fire.canceled += FireEnd;
+        playerAction.DefMaps.MoveSkill.performed += MoveSkill;
+        playerAction.Enable();
     }
 
     // Update is called once per frame 
@@ -64,8 +81,19 @@ public class PlayerController : MonoBehaviour, IController
         {
             animator.SetInteger("speed", Mathf.RoundToInt(movement.x*transform.localScale.x));
         }
+
+        Fire();
     }
 
+    private void OnDisable()
+    {
+        playerAction.DefMaps.Look.performed -= Look;
+        playerAction.DefMaps.Move.performed -= Move;
+        playerAction.DefMaps.Fire.started -= FireStart;
+        playerAction.DefMaps.Fire.canceled -= FireEnd;
+        playerAction.DefMaps.MoveSkill.performed -= MoveSkill;
+        playerAction.Disable();
+    }
 
     /// <summary>
     /// 指向鼠标方型
@@ -110,24 +138,25 @@ public class PlayerController : MonoBehaviour, IController
             movement = readValue.normalized;
     }
 
-    public void Fire(InputAction.CallbackContext ctx)
+    public void FireStart(InputAction.CallbackContext ctx)
     {
-        if(ctx.phase == InputActionPhase.Performed)
-            fireSkill.UseSkill(playobj);
-        print("按下");
-        if (launchInterval < 0)
-        {
-            fireSkill.UseSkill(playobj);
-            launchInterval = 0.2f;
-        }
-        launchInterval -= Time.deltaTime;
+        fireSwitch  = true;
+    }
+
+    public void Fire()
+    {
+        if(fireSwitch)
+            this.SendCommand<bool>(new UseSkillCommand(playobj, fireSkill));
+    }
+
+    public void FireEnd(InputAction.CallbackContext ctx)
+    {
+        fireSwitch = false;
     }
     
     public void MoveSkill(InputAction.CallbackContext ctx)
     {
-        if(ctx.phase == InputActionPhase.Performed)
-            moveSkill.UseSkill(playobj);
-        print("按下");
+        this.SendCommand<bool>(new UseSkillCommand(playobj, moveSkill));
     }
 
     public IArchitecture GetArchitecture()

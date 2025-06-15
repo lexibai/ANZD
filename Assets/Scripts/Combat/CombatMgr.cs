@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Actor;
 using Bullet;
 using Model.Skill;
@@ -7,11 +8,37 @@ using UnityEngine;
 
 namespace Combat
 {
+    public class CombatTimer : MonoSingleton<CombatTimer>
+    {
+        public float deltaTime;
+        
+        public Action OnUpdate;
+        
+        public void Update()
+        {
+            deltaTime = Time.deltaTime;
+            OnUpdate.Invoke();
+        }
+    }
+    
     public class CombatMgr: AbstractSystem
     {
+        
+        private readonly List<Skill> skillsOnCd = new List<Skill>();
+        
         protected override void OnInit()
         {
-            
+            CombatTimer.Instance.OnUpdate += () =>
+            {
+                foreach (var skill in skillsOnCd.ToArray())
+                {
+                    skill.nowCd  -= CombatTimer.Instance.deltaTime;
+                    if (skill.nowCd <= 0)
+                    {
+                        skillsOnCd.Remove(skill);
+                    }
+                }
+            };
         }
 
         /// <summary>
@@ -56,6 +83,32 @@ namespace Combat
             {
                 target.OnDeath();
             }
+        }
+        
+        /// <summary>
+        /// 判断技能是否可用, 泛化的逻辑, 与技能独立的判断与运算
+        /// </summary>
+        /// <param name="userObj"></param>
+        /// <param name="skill"></param>
+        public bool CheckSkillCanUse(ActorObj userObj, Skill skill)
+        {
+            if (skill.nowCd > 0)
+            {
+                return false;
+            }
+            return skill.CanUse(userObj);
+        }
+
+        /// <summary>
+        /// 使用技能
+        /// </summary>
+        /// <param name="userObj"></param>
+        /// <param name="skill"></param>
+        public void UseSkill(ActorObj userObj, Skill skill)
+        {
+            skill.nowCd = skill.skillData.cd;
+            skillsOnCd.Add(skill);
+            skill.UseSkill(userObj);
         }
     }
 }

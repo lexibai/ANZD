@@ -697,17 +697,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2035785939 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7915347338810187851, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-  m_PrefabInstance: {fileID: 2063157437379251479}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b735a308f1828945938c311b94e5451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2063157437379251479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,50 +705,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: bf9d6dcb-860a-4f0d-8956-0aaa9018f1fd
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: 'DefMaps/MoveSkill[/Keyboard/space]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2035785939}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MoveSkill
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1611848531037331399, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 1712037528050207829, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -803,26 +748,6 @@ PrefabInstance:
     - target: {fileID: 1977003470410447011, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105859825340669518, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: originalActorData.hp
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105859825340669518, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: originalActorData.nowHp
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105859825340669518, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: originalActorData.attack
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105859825340669518, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: originalActorData.defense
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105859825340669518, guid: 04c8b79a4a2b81448abce3ed260ed100, type: 3}
-      propertyPath: originalActorData.moveSpeed
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

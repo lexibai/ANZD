@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Const;
 using DefaultNamespace;
 using Model.Skill.Impl;
+using Model.Skill.Impl.Magic;
 using Model.Skill.Impl.Move;
 using QFramework;
 
@@ -18,6 +19,7 @@ namespace Model.Skill
         {
             {SkillModelAssets.普通奥术射击, typeof(FireSkill)},
             {SkillModelAssets.加速移动, typeof(SpeedUpSkill)},
+            {SkillModelAssets.八个子弹, typeof(MoreBulletSkill)},
         };
         
         public Skill CreateSkill(string skillLiteralQuantity)

@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour, IController
     
     public Skill fireSkill;
     public Skill moveSkill;
+    public Skill magicSkill;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour, IController
         playobj = GetComponent<PlayerObj>();
         fireSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通奥术射击);
         moveSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.加速移动);
+        magicSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.八个子弹);
     }
 
     private void OnEnable()
@@ -65,6 +67,8 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.Fire.started += FireStart;
         playerAction.DefMaps.Fire.canceled += FireEnd;
         playerAction.DefMaps.MoveSkill.performed += MoveSkill;
+        playerAction.DefMaps.MoveSkill.canceled += MoveSkill;
+        playerAction.DefMaps.MagicSkill.performed += MagicSkill;
         playerAction.Enable();
     }
 
@@ -94,6 +98,8 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.Fire.started -= FireStart;
         playerAction.DefMaps.Fire.canceled -= FireEnd;
         playerAction.DefMaps.MoveSkill.performed -= MoveSkill;
+        playerAction.DefMaps.MoveSkill.canceled -= MoveSkill;
+        playerAction.DefMaps.MagicSkill.performed -= MagicSkill;
         playerAction.Disable();
     }
 
@@ -159,6 +165,11 @@ public class PlayerController : MonoBehaviour, IController
     public void MoveSkill(InputAction.CallbackContext ctx)
     {
         this.SendCommand<bool>(new UseSkillCommand(playobj, moveSkill));
+    }
+
+    public void MagicSkill(InputAction.CallbackContext ctx)
+    {
+        this.SendCommand<bool>(new UseSkillCommand(playobj, magicSkill));
     }
 
     public IArchitecture GetArchitecture()

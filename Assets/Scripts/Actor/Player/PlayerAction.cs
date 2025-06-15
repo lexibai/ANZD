@@ -126,6 +126,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MagicSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb96380c-7e64-4a4e-867a-85a1f99565a6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""MoveSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14ebfb69-772d-47dc-9bdf-7a767a6061a9"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MagicSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -228,6 +248,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_DefMaps_Move = m_DefMaps.FindAction("Move", throwIfNotFound: true);
         m_DefMaps_Fire = m_DefMaps.FindAction("Fire", throwIfNotFound: true);
         m_DefMaps_MoveSkill = m_DefMaps.FindAction("MoveSkill", throwIfNotFound: true);
+        m_DefMaps_MagicSkill = m_DefMaps.FindAction("MagicSkill", throwIfNotFound: true);
     }
 
     ~@PlayerAction()
@@ -312,6 +333,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_DefMaps_Move;
     private readonly InputAction m_DefMaps_Fire;
     private readonly InputAction m_DefMaps_MoveSkill;
+    private readonly InputAction m_DefMaps_MagicSkill;
     /// <summary>
     /// Provides access to input actions defined in input action map "DefMaps".
     /// </summary>
@@ -339,6 +361,10 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DefMaps/MoveSkill".
         /// </summary>
         public InputAction @MoveSkill => m_Wrapper.m_DefMaps_MoveSkill;
+        /// <summary>
+        /// Provides access to the underlying input action "DefMaps/MagicSkill".
+        /// </summary>
+        public InputAction @MagicSkill => m_Wrapper.m_DefMaps_MagicSkill;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -377,6 +403,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @MoveSkill.started += instance.OnMoveSkill;
             @MoveSkill.performed += instance.OnMoveSkill;
             @MoveSkill.canceled += instance.OnMoveSkill;
+            @MagicSkill.started += instance.OnMagicSkill;
+            @MagicSkill.performed += instance.OnMagicSkill;
+            @MagicSkill.canceled += instance.OnMagicSkill;
         }
 
         /// <summary>
@@ -400,6 +429,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @MoveSkill.started -= instance.OnMoveSkill;
             @MoveSkill.performed -= instance.OnMoveSkill;
             @MoveSkill.canceled -= instance.OnMoveSkill;
+            @MagicSkill.started -= instance.OnMagicSkill;
+            @MagicSkill.performed -= instance.OnMagicSkill;
+            @MagicSkill.canceled -= instance.OnMagicSkill;
         }
 
         /// <summary>
@@ -468,5 +500,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveSkill(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MagicSkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMagicSkill(InputAction.CallbackContext context);
     }
 }

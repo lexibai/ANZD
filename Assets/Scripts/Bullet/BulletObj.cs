@@ -82,8 +82,8 @@ namespace Bullet
                 // 可视化调试
                 // 绘制原始射线方向（未命中时也可见）
                 Debug.DrawRay(transform.position, directionCenter * 20f, Color.blue);   // 正前方蓝色射线
-                Debug.DrawRay(transform.position, directionUp * 20f, Color.green);      // 上偏移绿色射线
-                Debug.DrawRay(transform.position, directionDown * 20f, Color.yellow);   // 下偏移黄色射线
+                Debug.DrawRay(transform.position, directionUp * 20f, Color.blue);      // 上偏移绿色射线
+                Debug.DrawRay(transform.position, directionDown * 20f, Color.blue);   // 下偏移黄色射线
                 foreach (var hit in raycastHit2Ds)
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.red, 0.1f);

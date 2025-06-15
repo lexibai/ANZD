@@ -30,7 +30,7 @@ namespace Actor.Enemy
             spawnInterval -= Time.deltaTime;
             if (spawnInterval <= 0)
             {
-                spawnInterval = Random.Range(0.5f, 1.5f);
+                spawnInterval = Random.Range(0.1f, 0.5f);
                 var enemyObj = Instantiate(enemyPrefab);
 
                 // 获取摄像机的正交视角尺寸和屏幕宽高比

@@ -20,7 +20,10 @@ namespace Model.Skill.Impl
                 {
                     //这里实例化子弹
                     var gameObject = Resources.Load<GameObject>("bullet");
-                    var but = BulletFactory.Instance.CreateBullet(new BulletData(), userObj, this);
+                    var but = BulletFactory.Instance.CreateBullet(new BulletData()
+                    {
+                        color = Color.red
+                    }, userObj, this);
                     var positionValue = Mouse.current.position.value;
                     var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
                     screenToWorldPoint.z = 0;

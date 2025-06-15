@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         playerAction.DefMaps.Look.performed += Look;
         playerAction.DefMaps.Move.performed += Move;
+        playerAction.DefMaps.Move.canceled += Move;
         playerAction.DefMaps.Fire.started += FireStart;
         playerAction.DefMaps.Fire.canceled += FireEnd;
         playerAction.DefMaps.MoveSkill.performed += MoveSkill;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         playerAction.DefMaps.Look.performed -= Look;
         playerAction.DefMaps.Move.performed -= Move;
+        playerAction.DefMaps.Move.canceled -= Move;
         playerAction.DefMaps.Fire.started -= FireStart;
         playerAction.DefMaps.Fire.canceled -= FireEnd;
         playerAction.DefMaps.MoveSkill.performed -= MoveSkill;

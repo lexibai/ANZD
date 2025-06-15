@@ -9,8 +9,6 @@ public class PlayerObj : ActorObj
 
     public static PlayerObj Instance;
     
-    //生成怪物间隔
-    public float spawnInterval = 1;
     
     private void Awake()
     {
@@ -31,17 +29,6 @@ public class PlayerObj : ActorObj
     protected override void Update()
     {
         base.Update();
-        if (originalActorData.nowHp > 0)
-        {
-            spawnInterval -= Time.deltaTime;
-            if (spawnInterval <= 0)
-            {
-                spawnInterval = 1;
-                var enemyObj = GameObject.Instantiate(Resources.Load<GameObject>("Enemy"));
-                enemyObj.transform.position = transform.position + new Vector3(Random.Range(-10, 10f), 
-                    Random.Range(-10, 10), 0);
-            }
-        }
     }
 
     public override Transform GetFireTransform()

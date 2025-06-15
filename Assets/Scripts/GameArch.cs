@@ -1,4 +1,5 @@
-﻿using Buff;
+﻿using Actor.Enemy;
+using Buff;
 using Combat;
 using Model.Skill;
 using QFramework;
@@ -11,7 +12,8 @@ namespace DefaultNamespace
         protected override void Init()
         {
             ResKit.Init();
-
+            EnemyMgr.Instance.Init();
+            
             //buff模型
             RegisterModel<BuffModel>(new BuffModel());
             //技能模型

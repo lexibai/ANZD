@@ -45,12 +45,21 @@ namespace Bullet
             var spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = Resources.Load<Sprite>("Circle");
         }
+        
 
         private void Start()
         {
+        }
+
+        private void OnEnable()
+        {
             destroyRoutine = StartCoroutine(DestroyAfterDelay(bulletData.lifeTime));
             hitCollider = this.gameObject.GetComponent<Collider2D>();
-            hitCollider.isTrigger = true;
+            if (hitCollider != null)
+            {
+                hitCollider.isTrigger = true;
+
+            }
         }
 
         private void Update()
@@ -105,8 +114,9 @@ namespace Bullet
             {
                 if (other.CompareTag(bulletDataTargetTag))
                 {
-                    Destroy(this.gameObject);
-
+                    //Destroy(this.gameObject);
+                    BulletFactory.Instance.RecycleBullet(this);
+                    
                     var enemyObj = other.gameObject.GetComponent<EnemyObj>();
                     //伤害敌人
                     this.SendCommand<DamageCommand>(
@@ -124,16 +134,22 @@ namespace Bullet
             yield return new WaitForSeconds(delay);
             if (gameObject != null)
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                BulletFactory.Instance.RecycleBullet(this);
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (destroyRoutine != null)
             {
                 StopCoroutine(destroyRoutine);
             }
+        }
+
+        private void OnDestroy()
+        {
+            
         }
         public IArchitecture GetArchitecture()
         {

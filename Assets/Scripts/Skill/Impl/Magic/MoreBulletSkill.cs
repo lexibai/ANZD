@@ -12,7 +12,10 @@ namespace Model.Skill.Impl.Magic
             for (int i = 0; i < 8; i++)
             {
                 //这里实例化子弹
-                var but = BulletFactory.Instance.CreateBullet(new BulletData(), userObj, this);
+                var but = BulletFactory.Instance.CreateBullet(new BulletData()
+                {
+                    canTracking = true
+                }, userObj, this);
                 var positionValue = Mouse.current.position.value;
                 var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
                 screenToWorldPoint.z = 0;

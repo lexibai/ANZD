@@ -20,7 +20,7 @@ namespace Bullet
         /// <summary>
         /// 子弹是否可以追踪
         /// </summary>
-        public bool canTracking = true;
+        public bool canTracking = false;
 
         /// <summary>
         /// 子弹追踪时间

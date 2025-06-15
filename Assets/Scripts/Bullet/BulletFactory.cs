@@ -21,7 +21,7 @@ namespace Bullet
             var bulletObj = but.GetComponent<BulletObj>();
             bulletObj.skill = skill?.Clone() as Skill;
             bulletObj.attacker = attacker;
-            bulletObj.bulletData = data;
+            bulletObj.bulletData = data.Clone() as BulletData;
             return bulletObj;
         }
     }

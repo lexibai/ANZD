@@ -58,35 +58,19 @@ namespace Bullet
             transform.Translate(Vector3.right * (Time.deltaTime * bulletData.moveSpeed));
 
             #region 追踪
-
+            bulletData.trackingTime -= Time.deltaTime;
             if (bulletData.canTracking && !bulletData.selectTarget && bulletData.trackingTime > 0)
             {
-                bulletData.trackingTime -= Time.deltaTime;
-                    
-                // 定义三个方向：正前方、上方30度、下方30度
-                Vector2 directionCenter = transform.right;
-                Vector2 directionUp = Quaternion.AngleAxis(30, Vector3.forward) * directionCenter;
-                Vector2 directionDown = Quaternion.AngleAxis(-30, Vector3.forward) * directionCenter;
+                //圆形检测
+                var overlapCircleAll = Physics2D.OverlapCircleAll(transform.position, 25f);
 
-                // 射线检测范围
-                var raycastHit2DsCenter = Physics2D.RaycastAll(transform.position, directionCenter, 20f);
-                var raycastHit2DsUp = Physics2D.RaycastAll(transform.position, directionUp, 20f);
-                var raycastHit2DsDown = Physics2D.RaycastAll(transform.position, directionDown, 20f);
-
-                // 合并所有碰撞结果
-                List<RaycastHit2D> raycastHit2Ds = new List<RaycastHit2D>();
-                raycastHit2Ds.AddRange(raycastHit2DsCenter);
-                raycastHit2Ds.AddRange(raycastHit2DsUp);
-                raycastHit2Ds.AddRange(raycastHit2DsDown);
 
                 // 可视化调试
-                // 绘制原始射线方向（未命中时也可见）
-                Debug.DrawRay(transform.position, directionCenter * 20f, Color.blue);   // 正前方蓝色射线
-                Debug.DrawRay(transform.position, directionUp * 20f, Color.blue);      // 上偏移绿色射线
-                Debug.DrawRay(transform.position, directionDown * 20f, Color.blue);   // 下偏移黄色射线
-                foreach (var hit in raycastHit2Ds)
+                // 绘制检测圆球（未命中时也可见）
+                // 绘制圆形检测范围
+                DrawCircle(transform.position, 25f, Color.green);
+                foreach (var hit in overlapCircleAll)
                 {
-                    Debug.DrawLine(transform.position, hit.point, Color.red, 0.1f);
                     foreach (var bulletDataTargetTag in bulletData.targetTags)
                     {
                         if (hit.transform.gameObject.CompareTag(bulletDataTargetTag))
@@ -154,6 +138,20 @@ namespace Bullet
         public IArchitecture GetArchitecture()
         {
             return GameArch.Interface;
+        }
+        
+        void DrawCircle(Vector3 center, float radius, Color color)
+        {
+            int segments = 36; // 圆的精度
+            Vector3 previousPoint = center + new Vector3(radius, 0f, 0f);
+
+            for (int i = 1; i <= segments; i++)
+            {
+                float angle = i * (360f / segments) * Mathf.Deg2Rad;
+                Vector3 newPoint = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
+                Debug.DrawLine(previousPoint, newPoint, color);
+                previousPoint = newPoint;
+            }
         }
         
         

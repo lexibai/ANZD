@@ -1,0 +1,12 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.47f1
+CRC: 1551769313
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: bullet_prefab
+      Dependencies: {}
+    Info_1:
+      Name: bulletsprite
+      Dependencies: {}

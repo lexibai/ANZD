@@ -15,13 +15,14 @@ namespace Editor.Tool
             GetWindow<EnemyTool>().Show();
         }
 
+        [BoxGroup("添加怪物",false, order:1f)]
         public EnemyGenerateInfo info;
         
         /// <summary>
         /// 添加敌人
         /// </summary>
         /// <param name="info"></param>
-        [ButtonGroup("操作"), Button("添加敌人")]
+        [BoxGroup("添加怪物", true, order: 2f), Button("添加敌人")]
         public void AddEnemys()
         {
             EnemyMgr.Instance.AddEnemyInfo(new EnemyGenerateInfo()
@@ -31,6 +32,7 @@ namespace Editor.Tool
             });
         }
         
+        [BoxGroup("怪物列表"), TableList]
         public List<EnemyGenerateInfo> enemyGenerateInfos = new List<EnemyGenerateInfo>();
 
         protected override void OnEnable()

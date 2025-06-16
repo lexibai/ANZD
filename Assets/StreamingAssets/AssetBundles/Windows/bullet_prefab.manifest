@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.47f1
+CRC: 2970603067
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9ddfaea7d80184da7686d2b88b73f581
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 378a72322b81c3c123b1891165fda2a4
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9fdb6439d43c5c1750ee09c04cbe9a91
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 32a50151bd0a47b4a7c93287bc3392cc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/bullet.prefab
+Dependencies: []

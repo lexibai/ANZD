@@ -167,7 +167,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2550e8bf395e0164fa87f30624be8343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  originalActorData:
+    hp: 60
+    attack: 6
+    defense: 5
+    moveSpeed: 5
+    nowHp: 60
 --- !u!1 &4202961539173824576
 GameObject:
   m_ObjectHideFlags: 0

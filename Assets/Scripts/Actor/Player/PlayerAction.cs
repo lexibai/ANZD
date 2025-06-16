@@ -135,6 +135,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""25aba1ab-7568-4762-98ac-0396e5161b9f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -236,6 +245,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""MagicSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec9c6c3c-8f0f-47b4-b102-d9903a655601"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -249,6 +269,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_DefMaps_Fire = m_DefMaps.FindAction("Fire", throwIfNotFound: true);
         m_DefMaps_MoveSkill = m_DefMaps.FindAction("MoveSkill", throwIfNotFound: true);
         m_DefMaps_MagicSkill = m_DefMaps.FindAction("MagicSkill", throwIfNotFound: true);
+        m_DefMaps_AttackSkill = m_DefMaps.FindAction("AttackSkill", throwIfNotFound: true);
     }
 
     ~@PlayerAction()
@@ -334,6 +355,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_DefMaps_Fire;
     private readonly InputAction m_DefMaps_MoveSkill;
     private readonly InputAction m_DefMaps_MagicSkill;
+    private readonly InputAction m_DefMaps_AttackSkill;
     /// <summary>
     /// Provides access to input actions defined in input action map "DefMaps".
     /// </summary>
@@ -365,6 +387,10 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DefMaps/MagicSkill".
         /// </summary>
         public InputAction @MagicSkill => m_Wrapper.m_DefMaps_MagicSkill;
+        /// <summary>
+        /// Provides access to the underlying input action "DefMaps/AttackSkill".
+        /// </summary>
+        public InputAction @AttackSkill => m_Wrapper.m_DefMaps_AttackSkill;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -406,6 +432,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @MagicSkill.started += instance.OnMagicSkill;
             @MagicSkill.performed += instance.OnMagicSkill;
             @MagicSkill.canceled += instance.OnMagicSkill;
+            @AttackSkill.started += instance.OnAttackSkill;
+            @AttackSkill.performed += instance.OnAttackSkill;
+            @AttackSkill.canceled += instance.OnAttackSkill;
         }
 
         /// <summary>
@@ -432,6 +461,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @MagicSkill.started -= instance.OnMagicSkill;
             @MagicSkill.performed -= instance.OnMagicSkill;
             @MagicSkill.canceled -= instance.OnMagicSkill;
+            @AttackSkill.started -= instance.OnAttackSkill;
+            @AttackSkill.performed -= instance.OnAttackSkill;
+            @AttackSkill.canceled -= instance.OnAttackSkill;
         }
 
         /// <summary>
@@ -507,5 +539,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMagicSkill(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AttackSkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackSkill(InputAction.CallbackContext context);
     }
 }

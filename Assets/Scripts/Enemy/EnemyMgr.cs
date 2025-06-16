@@ -19,7 +19,7 @@ namespace Actor.Enemy
         public List<EnemyGenerateInfo> enemyGenerateInfos = new();
 
         /// <summary>
-        /// 初始化, 用于唤出管理器 
+        /// 初始化, 用于唤出管理器  
         /// </summary>
         public void Init()
         {

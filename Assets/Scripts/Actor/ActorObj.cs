@@ -72,5 +72,6 @@ namespace Actor
         }
 
         public abstract Transform GetFireTransform();
+        public abstract Transform GetFaceLookAtTransform();
     }
 }

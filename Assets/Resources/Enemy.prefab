@@ -168,11 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalActorData:
-    hp: 60
+    hp: 200
     attack: 6
     defense: 5
     moveSpeed: 5
-    nowHp: 60
+    nowHp: 200
 --- !u!1 &4202961539173824576
 GameObject:
   m_ObjectHideFlags: 0

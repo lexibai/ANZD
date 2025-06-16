@@ -12,13 +12,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IController
 {
     // 输入控制类的实例  
-    private PlayerAction playerAction;  
-    
+    private PlayerAction playerAction;
+
     /// <summary>
     /// 武器的ik节点
     /// </summary>
     public Transform WeaponIkTransform;
-    
+
     /// <summary>
     /// 头部的ik节点
     /// </summary>
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, IController
     public Transform centerOfCircle;
 
     public PlayerObj playobj;
-    
+
     /// <summary>
     /// 移动向量
     /// </summary>
@@ -39,14 +39,15 @@ public class PlayerController : MonoBehaviour, IController
     public Animator animator;
 
     public bool fireSwitch = false;
-    
+
     public Skill fireSkill;
     public Skill moveSkill;
     public Skill magicSkill;
+    public Skill atkSkill;
 
     private void Awake()
     {
-        playerAction  = new PlayerAction();
+        playerAction = new PlayerAction();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour, IController
         fireSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通奥术射击);
         moveSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.加速移动);
         magicSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.八个子弹);
+        atkSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通攻击);
     }
 
     private void OnEnable()
@@ -69,23 +71,47 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MoveSkill.performed += MoveSkill;
         playerAction.DefMaps.MoveSkill.canceled += MoveSkill;
         playerAction.DefMaps.MagicSkill.performed += MagicSkill;
+        playerAction.DefMaps.AttackSkill.performed += AtkSkill;
         playerAction.Enable();
     }
 
     // Update is called once per frame 
     void Update()
     {
+        // transform.Translate(movement*Vector2.one * (playobj.actorData.moveSpeed * Time.deltaTime));
+        // if (movement.x == 0 && movement.y != 0)
+        // {
+        //     animator.SetInteger("speed", Mathf.Abs(Mathf.RoundToInt(movement.y)));
+        // }
+        // else
+        // {
+        //     animator.SetInteger("speed", Mathf.RoundToInt(movement.x*transform.localScale.x));
+        // }
+        // 使用 movement.x 判断水平方向，不受缩放影响
+
+        // 如果角色正面向左或右，可以根据 transform.eulerAngles.y 判断朝向
+        int facingDir = transform.eulerAngles.y < 180 ? 1 : -1;
         
-        transform.Translate(movement*Vector2.one * (playobj.actorData.moveSpeed * Time.deltaTime));
-        // print(movement);
-        if (movement.x == 0 && movement.y != 0)
+        // 修改移动方式，基于 transform 的朝向进行前后移动
+        Vector2 moveDirection = transform.up * movement.y + transform.right * (movement.x*facingDir);
+        transform.Translate(moveDirection * (playobj.actorData.moveSpeed * Time.deltaTime), Space.World);
+
+        int horizontalDir = Mathf.RoundToInt(movement.x);
+
+
+        if (horizontalDir == 0)
         {
             animator.SetInteger("speed", Mathf.Abs(Mathf.RoundToInt(movement.y)));
         }
         else
         {
-            animator.SetInteger("speed", Mathf.RoundToInt(movement.x*transform.localScale.x));
+            // 最终 speed 参数结合方向和速度大小
+            int speedParam = (horizontalDir * facingDir);
+            animator.SetInteger("speed", speedParam);
         }
+
+        
+
 
         Fire();
     }
@@ -100,6 +126,7 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MoveSkill.performed -= MoveSkill;
         playerAction.DefMaps.MoveSkill.canceled -= MoveSkill;
         playerAction.DefMaps.MagicSkill.performed -= MagicSkill;
+        playerAction.DefMaps.AttackSkill.performed -= AtkSkill;
         playerAction.Disable();
     }
 
@@ -113,27 +140,26 @@ public class PlayerController : MonoBehaviour, IController
         {
             throw new System.NotImplementedException();
         }
-        
+
         var mouseScreenPos = ctx.ReadValue<Vector2>();
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, 0));
         mousePos.z = 0;
-        
+
         if (transform.position.x <= mousePos.x)
         {
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.y);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.y);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        
+
         float radius = 1.2f; // 圆的半径
         Vector3 direction = mousePos - centerOfCircle.position;
         direction = Vector3.ClampMagnitude(direction, radius);
         WeaponIkTransform.position = centerOfCircle.position + direction;
 
         HeadIkTransform.position = mousePos;
-
     }
 
     /// <summary>
@@ -142,18 +168,18 @@ public class PlayerController : MonoBehaviour, IController
     /// <param name="ctx"></param>
     public void Move(InputAction.CallbackContext ctx)
     {
-            var readValue = ctx.ReadValue<Vector2>();
-            movement = readValue.normalized;
+        var readValue = ctx.ReadValue<Vector2>();
+        movement = readValue.normalized;
     }
 
     public void FireStart(InputAction.CallbackContext ctx)
     {
-        fireSwitch  = true;
+        fireSwitch = true;
     }
 
     public void Fire()
     {
-        if(fireSwitch)
+        if (fireSwitch)
             this.SendCommand<bool>(new UseSkillCommand(playobj, fireSkill));
     }
 
@@ -161,7 +187,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         fireSwitch = false;
     }
-    
+
     public void MoveSkill(InputAction.CallbackContext ctx)
     {
         this.SendCommand<bool>(new UseSkillCommand(playobj, moveSkill));
@@ -170,6 +196,11 @@ public class PlayerController : MonoBehaviour, IController
     public void MagicSkill(InputAction.CallbackContext ctx)
     {
         this.SendCommand<bool>(new UseSkillCommand(playobj, magicSkill));
+    }
+
+    public void AtkSkill(InputAction.CallbackContext ctx)
+    {
+        this.SendCommand<bool>(new UseSkillCommand(playobj, atkSkill));
     }
 
     public IArchitecture GetArchitecture()

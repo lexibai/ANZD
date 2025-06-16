@@ -11,11 +11,7 @@ public class EnemyObj : ActorObj
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        originalActorData.hp = 30;
-        originalActorData.nowHp = 30;
-        originalActorData.attack = 10;
-        originalActorData.defense = 5;
-        originalActorData.moveSpeed = 5;
+
     }
 
     // Update is called once per frame
@@ -60,6 +56,11 @@ public class EnemyObj : ActorObj
     }
 
     public override Transform GetFireTransform()
+    {
+        return transform;
+    }
+
+    public override Transform GetFaceLookAtTransform()
     {
         return transform;
     }

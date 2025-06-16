@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerObj : ActorObj
 {
     public Transform FirePos;
+    
+    public Transform HeadPos;
 
     public static PlayerObj Instance;
     
@@ -34,6 +36,11 @@ public class PlayerObj : ActorObj
     public override Transform GetFireTransform()
     {
         return FirePos;
+    }
+
+    public override Transform GetFaceLookAtTransform()
+    {
+        return HeadPos;
     }
     
     public override void OnTakeDamage(ActorObj attacker, Skill skill, BulletObj bullet)

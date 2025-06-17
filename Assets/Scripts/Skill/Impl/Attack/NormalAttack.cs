@@ -27,14 +27,20 @@ namespace Model.Skill.Impl.Attack
             var mousePosV2 = faceLookAtTransform.right;
 
             var gameObject = new GameObject(nameof(NormalAttack));
-            gameObject.transform.SetParent(faceLookAtTransform);
+            gameObject.transform.position = userObj.transform.position;
+            gameObject.transform.rotation = faceLookAtTransform.rotation;
             
             gameObject.AddComponent<SpriteRenderer>();
             var animator = gameObject.AddComponent<Animator>();
             animator.runtimeAnimatorController = normalAnimatorController;
             animator.Play("normalAtk");
 
-            ActionKit.Delay(0.3f, () =>
+            ActionKit.OnUpdate.Register(() =>
+            {
+                gameObject.transform.position = userObj.transform.position;
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            ActionKit.Delay(1f, () =>
             {
                 Object.Destroy(gameObject);
             }).Start(userObj);

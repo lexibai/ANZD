@@ -11,12 +11,12 @@ namespace Model.Skill.Impl.Magic
         {
             for (int i = 0; i < 8; i++)
             {
-                //这里实例化子弹
+                //实例化八颗
                 var but = BulletFactory.Instance.CreateBullet(new BulletData()
                 {
-                    canTracking = true,
-                    spriteAss = QAssetBundle.Bulletsprite.RHOMBIC,
-                    color = Color.green
+                    canTracking = true, //跟踪
+                    spriteAss = QAssetBundle.Bulletsprite.RHOMBIC, // 菱形
+                    color = Color.green //绿色
                 }, userObj, this);
                 var positionValue = Mouse.current.position.value;
                 var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));

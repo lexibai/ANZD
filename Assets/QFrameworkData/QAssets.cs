@@ -22,4 +22,9 @@ namespace QAssetBundle
         public const string CIRCLE = "Circle";
         public const string RHOMBIC = "Rhombic";
     }
+    public class Normalatkctr_controller
+    {
+        public const string BundleName = "normalatkctr_controller";
+        public const string NORMALATKCTR = "normalAtkCtr";
+    }
 }

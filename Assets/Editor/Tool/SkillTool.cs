@@ -20,6 +20,7 @@ namespace Editor.Tool
             
         }
         
+        [TableList]
         public List<SkillData> skillDatas = new List<SkillData>();
 
         [ButtonGroup("操作"), Button("加载")]

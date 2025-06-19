@@ -63,7 +63,7 @@ namespace Model.Skill.Impl.Attack
                                 new DamageCommand(userObj, enemyObj.gameObject.GetComponent<ActorObj>(), 
                                     this, null)
                             );
-                            rigidbody2D.AddForce(LookATDir * 30, ForceMode2D.Impulse);
+                            rigidbody2D.AddForce((rigidbody2D.transform.position-faceLookAtTransform.position).normalized * 30, ForceMode2D.Impulse);
                         }
                             
                     }

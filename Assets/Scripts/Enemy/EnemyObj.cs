@@ -47,7 +47,7 @@ public class EnemyObj : ActorObj
             rb.AddForce(direction * actorData.moveSpeed * rb.mass);
 
             // 限制最大速度
-            if (rb.linearVelocity.magnitude > actorData.moveSpeed)
+            if (rb.linearVelocity.magnitude > actorData.moveSpeed && !actorState.isHit)
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * actorData.moveSpeed;
             }

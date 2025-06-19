@@ -16,6 +16,9 @@ namespace Actor.Enemy
         /// </summary>
         private GameObject enemyPrefab;
         
+        // todo: 将怪物进行数据化管理，随后使用资源加载器加载
+        //private ResLoader rl = ResLoader.Allocate();
+        
         public List<EnemyGenerateInfo> enemyGenerateInfos = new();
 
         /// <summary>

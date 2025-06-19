@@ -7,28 +7,43 @@ using UnityEngine;
 
 public class EnemyObj : ActorObj
 {
+    private ActorObj targetActor;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        ActionKit.Repeat().Delay(3f)
+            .Callback(() =>
+            {
+                print("圆形检测");
+                var results = Physics2D.OverlapCircleAll(transform.position, 100f);
+                foreach (var result in results)
+                {
+                    targetActor = result.GetComponent<PlayerObj>() ?? result.GetComponentInParent<PlayerObj>();
+                    print("targetActor:" + targetActor);
+                    if (targetActor != null)
+                    {
+                        break;
+                    }
+                }
+            }).Start(this);
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        var playerObj = PlayerObj.Instance;
-        if (playerObj != null)
+        
+        if (targetActor != null)
         {
             //接近玩家
-            transform.Translate((playerObj.transform.position - transform.position).normalized * (actorData.moveSpeed * Time.deltaTime));
+            transform.Translate((targetActor.transform.position - transform.position).normalized * (actorData.moveSpeed * Time.deltaTime));
             
             
-            if (Vector3.Distance(playerObj.transform.position, transform.position) < 1.5f)
+            if (Vector3.Distance(targetActor.transform.position, transform.position) < 1.5f)
             {
                 //伤害玩家
-                this.SendCommand<DamageCommand>(new DamageCommand(this, playerObj, null, null));
+                this.SendCommand<DamageCommand>(new DamageCommand(this, targetActor, null, null));
             }
         }
     }

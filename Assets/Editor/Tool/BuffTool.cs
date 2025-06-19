@@ -18,6 +18,7 @@ namespace Editor.Tool
             
         }
         
+        [TableList]
         public List<BuffData> buffDatas = new List<BuffData>();
 
         [ButtonGroup("操作"), Button("加载")]

@@ -4,6 +4,7 @@ using Combat;
 using Model.Skill;
 using QFramework;
 using Tool;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -11,7 +12,11 @@ namespace DefaultNamespace
     {
         protected override void Init()
         {
-            ResKit.Init();
+            if (Application.isPlaying)
+            {
+                ResKit.Init();
+            }
+            
             EnemyMgr.Instance.Init();
             
             //buff模型

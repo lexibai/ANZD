@@ -64,7 +64,7 @@ namespace Buff
                 if (nowDuration >= buffData.duration)
                 {
                     RemoveBuff();
-                    ao.buffs.Remove(this);
+                    
                 }
             }
         }
@@ -86,6 +86,7 @@ namespace Buff
 
         protected virtual void RemoveBuff()
         {
+            ao.buffs.Remove(this);
         }
 
         protected virtual void Additional()

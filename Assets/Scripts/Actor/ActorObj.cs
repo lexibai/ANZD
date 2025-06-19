@@ -71,6 +71,11 @@ namespace Actor
             return GameArch.Interface;
         }
 
+        public BaseBuffObj SearchBuffObj(String literalQuantity)
+        {
+            return buffs.Find(x => x.buffData.buffLiteralQuantity == literalQuantity);
+        }
+
         public abstract Transform GetFireTransform();
         public abstract Transform GetFaceLookAtTransform();
     }

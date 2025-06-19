@@ -9,9 +9,12 @@ public class EnemyObj : ActorObj
 {
     private ActorObj targetActor;
     
+    private Rigidbody2D rb;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         ActionKit.Repeat().Delay(3f)
             .Callback(() =>
             {
@@ -37,8 +40,17 @@ public class EnemyObj : ActorObj
         if (targetActor != null)
         {
             //接近玩家
-            transform.Translate((targetActor.transform.position - transform.position).normalized * (actorData.moveSpeed * Time.deltaTime));
+            //transform.Translate((targetActor.transform.position - transform.position).normalized * (actorData.moveSpeed * Time.deltaTime));
             
+            
+            Vector2 direction = (targetActor.transform.position - transform.position).normalized;
+            rb.AddForce(direction * actorData.moveSpeed * rb.mass);
+
+            // 限制最大速度
+            if (rb.linearVelocity.magnitude > actorData.moveSpeed)
+            {
+                rb.linearVelocity = rb.linearVelocity.normalized * actorData.moveSpeed;
+            }
             
             if (Vector3.Distance(targetActor.transform.position, transform.position) < 1.5f)
             {

@@ -43,6 +43,13 @@ namespace Actor.Enemy
             spawnInterval -= Time.deltaTime;
             if (spawnInterval <= 0)
             {
+                //检测场景中敌人数量
+                int enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+                if (enemyCount >= 50)
+                {
+                    return;
+                }
+                
                 var enemyP = RandomEnemyP();
                 if (enemyP == null)
                 {

@@ -78,23 +78,15 @@ public class PlayerController : MonoBehaviour, IController
     // Update is called once per frame 
     void Update()
     {
-        // transform.Translate(movement*Vector2.one * (playobj.actorData.moveSpeed * Time.deltaTime));
-        // if (movement.x == 0 && movement.y != 0)
-        // {
-        //     animator.SetInteger("speed", Mathf.Abs(Mathf.RoundToInt(movement.y)));
-        // }
-        // else
-        // {
-        //     animator.SetInteger("speed", Mathf.RoundToInt(movement.x*transform.localScale.x));
-        // }
-        // 使用 movement.x 判断水平方向，不受缩放影响
 
         // 如果角色正面向左或右，可以根据 transform.eulerAngles.y 判断朝向
         int facingDir = transform.eulerAngles.y < 180 ? 1 : -1;
-        
+
         // 修改移动方式，基于 transform 的朝向进行前后移动
+        
         Vector2 moveDirection = transform.up * movement.y + transform.right * (movement.x*facingDir);
-        transform.Translate(moveDirection * (playobj.actorData.moveSpeed * Time.deltaTime), Space.World);
+        //transform.Translate(moveDirection * (playobj.actorData.moveSpeed * Time.deltaTime), Space.World);
+        playobj.Move(moveDirection);
 
         int horizontalDir = Mathf.RoundToInt(movement.x);
 

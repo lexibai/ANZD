@@ -18,8 +18,16 @@ namespace Actor
         
         //角色状态
         public ActorState actorState = new ActorState();
+
+        //角色刚体
+        public Rigidbody2D rb;
         
         public List<BaseBuffObj> buffs = new List<BaseBuffObj>();
+
+        protected virtual void Start()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
 
         protected virtual void Update()
         {
@@ -71,10 +79,25 @@ namespace Actor
             return GameArch.Interface;
         }
 
+        /// <summary>
+        /// 搜索buff
+        /// </summary>
+        /// <param name="literalQuantity">字面量</param>
+        /// <returns>buff, 没有找到返回空</returns>
         public BaseBuffObj SearchBuffObj(String literalQuantity)
         {
             return buffs.Find(x => x.buffData.buffLiteralQuantity == literalQuantity);
         }
+
+
+        public void Move(Vector2 direction)
+        {
+            if (rb.linearVelocity.magnitude < actorData.moveSpeed)
+            {
+                rb.AddForce(direction * actorData.moveSpeed);
+            }
+        }
+
 
         public abstract Transform GetFireTransform();
         public abstract Transform GetFaceLookAtTransform();

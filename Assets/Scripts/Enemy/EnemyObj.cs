@@ -9,12 +9,11 @@ public class EnemyObj : ActorObj
 {
     private ActorObj targetActor;
     
-    private Rigidbody2D rb;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
         targetActor = FindFirstObjectByType<PlayerObj>();
     }
 
@@ -27,16 +26,9 @@ public class EnemyObj : ActorObj
         {
             //接近玩家
             Vector2 direction = (targetActor.transform.position - transform.position).normalized;
-            
-            
-            
 
-            // 限制最大速度
-            if (rb.linearVelocity.magnitude <= actorData.moveSpeed)
-            {
-                rb.AddForce(direction * actorData.moveSpeed * rb.mass);
-
-            }
+            //移动
+            Move(direction);
             
             if (Vector3.Distance(targetActor.transform.position, transform.position) < 1.5f)
             {

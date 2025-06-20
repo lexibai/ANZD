@@ -20,7 +20,9 @@ namespace Model.Skill.Impl.MartialSkill
                     {
                         color = Color.red,
                         spriteAss = QAssetBundle.Bulletsprite.ATLAS_50_刀气,
-                        hitNum = 9999
+                        hitNum = 9999,
+                        moveSpeed = 100,
+                        force = 10f
                     }, userObj, this);
                     var positionValue = Mouse.current.position.value;
                     var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));

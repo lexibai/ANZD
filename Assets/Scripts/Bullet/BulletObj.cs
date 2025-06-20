@@ -128,6 +128,11 @@ namespace Bullet
                     }
 
                     var enemyObj = other.gameObject.GetComponent<EnemyObj>();
+
+                    //对敌人施加力
+                    Rigidbody2D enemyRb = enemyObj.GetComponent<Rigidbody2D>();
+                    enemyRb.AddForce(transform.right * bulletData.force, ForceMode2D.Impulse);
+
                     //伤害敌人
                     this.SendCommand<DamageCommand>(
                         new DamageCommand(attacker, other.gameObject.GetComponent<ActorObj>(), skill, this)

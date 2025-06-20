@@ -76,11 +76,6 @@ namespace Combat
             target.OnTakeDamage(attacker, skill, bullet);
             if (!ReferenceEquals(attacker, null))
             {
-                target.actorState.isHit = true;
-                ActionKit.Delay(0.3f, () =>
-                {
-                    target.actorState.isHit = false;
-                }).Start(target);
                 attacker.OnHit(target);
             }
 

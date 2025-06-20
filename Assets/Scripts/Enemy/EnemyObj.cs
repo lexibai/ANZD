@@ -15,21 +15,7 @@ public class EnemyObj : ActorObj
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        ActionKit.Repeat().Delay(3f)
-            .Callback(() =>
-            {
-                print("圆形检测");
-                var results = Physics2D.OverlapCircleAll(transform.position, 100f);
-                foreach (var result in results)
-                {
-                    targetActor = result.GetComponent<PlayerObj>() ?? result.GetComponentInParent<PlayerObj>();
-                    print("targetActor:" + targetActor);
-                    if (targetActor != null)
-                    {
-                        break;
-                    }
-                }
-            }).Start(this);
+        targetActor = FindFirstObjectByType<PlayerObj>();
     }
 
     // Update is called once per frame
@@ -40,16 +26,16 @@ public class EnemyObj : ActorObj
         if (targetActor != null)
         {
             //接近玩家
-            //transform.Translate((targetActor.transform.position - transform.position).normalized * (actorData.moveSpeed * Time.deltaTime));
-            
-            
             Vector2 direction = (targetActor.transform.position - transform.position).normalized;
-            rb.AddForce(direction * actorData.moveSpeed * rb.mass);
+            
+            
+            
 
             // 限制最大速度
-            if (rb.linearVelocity.magnitude > actorData.moveSpeed && !actorState.isHit)
+            if (rb.linearVelocity.magnitude <= actorData.moveSpeed)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * actorData.moveSpeed;
+                rb.AddForce(direction * actorData.moveSpeed * rb.mass);
+
             }
             
             if (Vector3.Distance(targetActor.transform.position, transform.position) < 1.5f)

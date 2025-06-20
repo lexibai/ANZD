@@ -1,20 +1,16 @@
-﻿using System;
-using System.Resources;
 using Actor;
 using Bullet;
 using QFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Object = UnityEngine.Object;
 
-namespace Model.Skill.Impl
+namespace Model.Skill.Impl.MartialSkill
 {
-    public class FireSkill : AbstractSkill
+    public class ShockSkill : AbstractSkill
     {
-
         public override void UseSkill(ActorObj userObj)
         {
-            ActionKit.Sequence()
+             ActionKit.Sequence()
                 .Delay(0.1f)
                 .Callback(() =>
                 {
@@ -22,7 +18,9 @@ namespace Model.Skill.Impl
                     //var gameObject = Resources.Load<GameObject>("bullet");
                     var but = BulletFactory.Instance.CreateBullet(new BulletData()
                     {
-                        color = Color.red
+                        color = Color.red,
+                        spriteAss = QAssetBundle.Bulletsprite.ATLAS_50_刀气,
+                        hitNum = 9999
                     }, userObj, this);
                     var positionValue = Mouse.current.position.value;
                     var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
@@ -37,6 +35,5 @@ namespace Model.Skill.Impl
                 })
                 .Start(userObj);
         }
-
     }
 }

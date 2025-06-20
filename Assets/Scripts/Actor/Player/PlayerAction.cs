@@ -144,6 +144,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MartialSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""72ea8051-92a8-4ba1-9a54-356cd06f1f04"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -256,6 +265,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""AttackSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""697127ba-7513-4e71-a413-0953a92eb979"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MartialSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -270,6 +290,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_DefMaps_MoveSkill = m_DefMaps.FindAction("MoveSkill", throwIfNotFound: true);
         m_DefMaps_MagicSkill = m_DefMaps.FindAction("MagicSkill", throwIfNotFound: true);
         m_DefMaps_AttackSkill = m_DefMaps.FindAction("AttackSkill", throwIfNotFound: true);
+        m_DefMaps_MartialSkill = m_DefMaps.FindAction("MartialSkill", throwIfNotFound: true);
     }
 
     ~@PlayerAction()
@@ -356,6 +377,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_DefMaps_MoveSkill;
     private readonly InputAction m_DefMaps_MagicSkill;
     private readonly InputAction m_DefMaps_AttackSkill;
+    private readonly InputAction m_DefMaps_MartialSkill;
     /// <summary>
     /// Provides access to input actions defined in input action map "DefMaps".
     /// </summary>
@@ -391,6 +413,10 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DefMaps/AttackSkill".
         /// </summary>
         public InputAction @AttackSkill => m_Wrapper.m_DefMaps_AttackSkill;
+        /// <summary>
+        /// Provides access to the underlying input action "DefMaps/MartialSkill".
+        /// </summary>
+        public InputAction @MartialSkill => m_Wrapper.m_DefMaps_MartialSkill;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -435,6 +461,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @AttackSkill.started += instance.OnAttackSkill;
             @AttackSkill.performed += instance.OnAttackSkill;
             @AttackSkill.canceled += instance.OnAttackSkill;
+            @MartialSkill.started += instance.OnMartialSkill;
+            @MartialSkill.performed += instance.OnMartialSkill;
+            @MartialSkill.canceled += instance.OnMartialSkill;
         }
 
         /// <summary>
@@ -464,6 +493,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @AttackSkill.started -= instance.OnAttackSkill;
             @AttackSkill.performed -= instance.OnAttackSkill;
             @AttackSkill.canceled -= instance.OnAttackSkill;
+            @MartialSkill.started -= instance.OnMartialSkill;
+            @MartialSkill.performed -= instance.OnMartialSkill;
+            @MartialSkill.canceled -= instance.OnMartialSkill;
         }
 
         /// <summary>
@@ -546,5 +578,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttackSkill(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MartialSkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMartialSkill(InputAction.CallbackContext context);
     }
 }

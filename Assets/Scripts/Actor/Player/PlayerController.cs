@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour, IController
     public Skill magicSkill;
     public Skill atkSkill;
 
+    public Skill martialSkill;
+
     private void Awake()
     {
         playerAction = new PlayerAction();
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour, IController
         moveSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.加速移动);
         magicSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.八个子弹);
         atkSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通攻击);
+        martialSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通冲击波);
     }
 
     private void OnEnable()
@@ -72,8 +75,10 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MoveSkill.canceled += MoveSkill;
         playerAction.DefMaps.MagicSkill.performed += MagicSkill;
         playerAction.DefMaps.AttackSkill.performed += AtkSkill;
+        playerAction.DefMaps.MartialSkill.performed += MartialSkill;
         playerAction.Enable();
     }
+
 
     // Update is called once per frame 
     void Update()
@@ -119,6 +124,7 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MoveSkill.canceled -= MoveSkill;
         playerAction.DefMaps.MagicSkill.performed -= MagicSkill;
         playerAction.DefMaps.AttackSkill.performed -= AtkSkill;
+        playerAction.DefMaps.MartialSkill.performed -= MartialSkill;
         playerAction.Disable();
     }
 
@@ -178,6 +184,11 @@ public class PlayerController : MonoBehaviour, IController
     public void FireEnd(InputAction.CallbackContext ctx)
     {
         fireSwitch = false;
+    }
+
+    private void MartialSkill(InputAction.CallbackContext context)
+    {
+        this.SendCommand<bool>(new UseSkillCommand(playobj, martialSkill));
     }
 
     public void MoveSkill(InputAction.CallbackContext ctx)

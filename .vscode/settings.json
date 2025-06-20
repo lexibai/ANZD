@@ -58,9 +58,7 @@
         "**/Library/**": true,
         "**/obj/**": true,
         "**/UserSettings/**": true,
-        "**/*.sln": true,
         "**/*.sln.DotSettings.user": true,
-        "**/*.csproj": true,
         "**/*.inputactions": true,
         "**/*.controller": true,
         "**/*.tmp": true,
@@ -74,7 +72,8 @@
     },
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj",
+        "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "ANZD.sln"
+    "dotnet.defaultSolution": "ANZD.sln",
+    "commentTranslate.hover.enabled": false
 }

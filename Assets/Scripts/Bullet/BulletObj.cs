@@ -11,41 +11,41 @@ using UnityEngine.Serialization;
 
 namespace Bullet
 {
-    public class BulletObj:MonoBehaviour, IController
+    public class BulletObj : MonoBehaviour, IController
     {
         /// <summary>
         /// 命中碰撞
         /// </summary>
         public Collider2D hitCollider;
-        
+
         /// <summary>
         /// 来源技能, 可为空
         /// </summary>
         public Skill skill;
-        
+
         /// <summary>
         /// 来源攻击者, 可为空
         /// </summary>
         public ActorObj attacker;
-        
+
         /// <summary>
         /// 销毁协程
         /// </summary>
         private Coroutine destroyRoutine;
-        
+
         /// <summary>
         /// 子弹数据
         /// </summary>
         public BulletData bulletData = new BulletData();
-        
-        
-        
+
+
+
         private void Awake()
         {
             var spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = Resources.Load<Sprite>("Circle");
         }
-        
+
 
         private void Start()
         {
@@ -75,7 +75,7 @@ namespace Bullet
                     bulletData.trackingTime -= Time.deltaTime;
                 }
             }
-            
+
             if (bulletData.canTracking && !bulletData.selectTarget && bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0)
             {
                 //圆形检测
@@ -85,7 +85,7 @@ namespace Bullet
                 // 可视化调试
                 // 绘制检测圆球（未命中时也可见）
                 // 绘制圆形检测范围
-                DrawCircle(transform.position, 25f, Color.green);
+                //DrawCircle(transform.position, 25f, Color.green);
                 foreach (var hit in overlapCircleAll)
                 {
                     foreach (var bulletDataTargetTag in bulletData.targetTags)
@@ -115,16 +115,18 @@ namespace Bullet
 
             #endregion
         }
-        
+
         private void OnTriggerStay2D(Collider2D other)
         {
             foreach (var bulletDataTargetTag in bulletData.targetTags)
             {
                 if (other.CompareTag(bulletDataTargetTag))
                 {
-                    //Destroy(this.gameObject);
-                    BulletFactory.Instance.RecycleBullet(this);
-                    
+                    if (--bulletData.hitNum <= 0)
+                    {
+                        BulletFactory.Instance.RecycleBullet(this);
+                    }
+
                     var enemyObj = other.gameObject.GetComponent<EnemyObj>();
                     //伤害敌人
                     this.SendCommand<DamageCommand>(
@@ -134,9 +136,9 @@ namespace Bullet
                 }
             }
 
-           
+
         }
-        
+
         private IEnumerator DestroyAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -157,13 +159,13 @@ namespace Bullet
 
         private void OnDestroy()
         {
-            
+
         }
         public IArchitecture GetArchitecture()
         {
             return GameArch.Interface;
         }
-        
+
         void DrawCircle(Vector3 center, float radius, Color color)
         {
             int segments = 36; // 圆的精度
@@ -177,7 +179,7 @@ namespace Bullet
                 previousPoint = newPoint;
             }
         }
-        
-        
+
+
     }
 }

@@ -5,6 +5,7 @@ using DefaultNamespace;
 using Model.Skill.Impl;
 using Model.Skill.Impl.Attack;
 using Model.Skill.Impl.Magic;
+using Model.Skill.Impl.MartialSkill;
 using Model.Skill.Impl.Move;
 using QFramework;
 
@@ -22,6 +23,7 @@ namespace Model.Skill
             {SkillModelAssets.加速移动, typeof(SpeedUpSkill)},
             {SkillModelAssets.八个子弹, typeof(MoreBulletSkill)},
             {SkillModelAssets.普通攻击, typeof(NormalAttack)},
+            {SkillModelAssets.普通冲击波, typeof(ShockSkill)},
         };
         
         public Skill CreateSkill(string skillLiteralQuantity)

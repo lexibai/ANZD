@@ -54,6 +54,12 @@ namespace Bullet
         /// </summary>
         public List<string> targetTags = new List<string>(){"Enemy"};
 
+
+        /// <summary>
+        /// 子弹可攻击次数
+        /// </summary>
+        public int hitNum = 1;
+
         
 
 

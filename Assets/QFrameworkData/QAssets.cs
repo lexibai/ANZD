@@ -19,6 +19,7 @@ namespace QAssetBundle
     public class Bulletsprite
     {
         public const string BundleName = "bulletsprite";
+        public const string ATLAS_50_刀气 = "atlas_50_刀气";
         public const string CIRCLE = "Circle";
         public const string RHOMBIC = "Rhombic";
     }

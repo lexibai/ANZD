@@ -15,10 +15,10 @@ namespace Actor.Enemy
         /// 怪物预制体
         /// </summary>
         private GameObject enemyPrefab;
-        
+
         // todo: 将怪物进行数据化管理，随后使用资源加载器加载
         //private ResLoader rl = ResLoader.Allocate();
-        
+
         public List<EnemyGenerateInfo> enemyGenerateInfos = new();
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Actor.Enemy
         public void Init()
         {
         }
-        
+
         private void Awake()
         {
             enemyPrefab = Resources.Load<GameObject>("Enemy");
@@ -49,7 +49,7 @@ namespace Actor.Enemy
                 {
                     return;
                 }
-                
+
                 var enemyP = RandomEnemyP();
                 if (enemyP == null)
                 {
@@ -102,7 +102,7 @@ namespace Actor.Enemy
             {
                 return null;
             }
-            
+
             //随机选择一个怪物预制体
             var enemyGenerateInfo = enemyGenerateInfos[Random.Range(0, enemyGenerateInfos.Count)];
             var enemyP = enemyGenerateInfo.prefab;
@@ -111,7 +111,7 @@ namespace Actor.Enemy
             {
                 return null;
             }
-            
+
             enemyGenerateInfo.num--;
             if (enemyGenerateInfo.num <= 0)
             {

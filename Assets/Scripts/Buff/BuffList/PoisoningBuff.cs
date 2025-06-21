@@ -1,7 +1,7 @@
 ﻿namespace Buff.BuffList
 {
-    public class PoisoningBuff: BaseBuffObj
+    public class PoisoningBuff : BaseBuffObj
     {
-        
+
     }
 }

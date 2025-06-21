@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Bullet
 {
-    public class BulletFactory:Singleton<BulletFactory>
+    public class BulletFactory : Singleton<BulletFactory>
     {
         private GameObject bulletPrefab;
         private SimpleObjectPool<GameObject> bulletPool;
         private ResLoader rl;
-        
+
         private BulletFactory()
         {
             rl = ResLoader.Allocate();
@@ -25,21 +25,21 @@ namespace Bullet
             {
                 //移除碰撞组件
                 Object.Destroy(o.GetComponent<Collider2D>());
-                
+
                 o.SetActive(false);
             }, 50);
         }
-        
-        public BulletObj CreateBullet(BulletData data, ActorObj attacker=null, Skill skill=null)
-        { 
+
+        public BulletObj CreateBullet(BulletData data, ActorObj attacker = null, Skill skill = null)
+        {
             var but = bulletPool.Allocate();
-            
+
             // 子弹运行时类设置
             var bulletObj = but.GetComponent<BulletObj>();
             bulletObj.skill = skill?.Clone() as Skill;
             bulletObj.attacker = attacker;
             bulletObj.bulletData = data.Clone() as BulletData;
-            
+
             // 子弹实体设置
             but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
             but.AddComponent<PolygonCollider2D>();

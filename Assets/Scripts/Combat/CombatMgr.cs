@@ -11,28 +11,28 @@ namespace Combat
     public class CombatTimer : MonoSingleton<CombatTimer>
     {
         public float deltaTime;
-        
+
         public Action OnUpdate;
-        
+
         public void Update()
         {
             deltaTime = Time.deltaTime;
             OnUpdate.Invoke();
         }
     }
-    
-    public class CombatMgr: AbstractSystem
+
+    public class CombatMgr : AbstractSystem
     {
-        
+
         private readonly List<Skill> skillsOnCd = new List<Skill>();
-        
+
         protected override void OnInit()
         {
             CombatTimer.Instance.OnUpdate += () =>
             {
                 foreach (var skill in skillsOnCd.ToArray())
                 {
-                    skill.nowCd  -= CombatTimer.Instance.deltaTime;
+                    skill.nowCd -= CombatTimer.Instance.deltaTime;
                     if (skill.nowCd <= 0)
                     {
                         skillsOnCd.Remove(skill);
@@ -86,7 +86,7 @@ namespace Combat
                 target.OnDeath();
             }
         }
-        
+
         /// <summary>
         /// 判断技能是否可用, 泛化的逻辑, 与技能独立的判断与运算
         /// </summary>

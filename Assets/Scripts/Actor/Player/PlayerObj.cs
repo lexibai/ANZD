@@ -6,12 +6,12 @@ using UnityEngine;
 public class PlayerObj : ActorObj
 {
     public Transform FirePos;
-    
+
     public Transform HeadPos;
 
     public static PlayerObj Instance;
-    
-    
+
+
     private void Awake()
     {
         Instance = this;
@@ -43,15 +43,15 @@ public class PlayerObj : ActorObj
     {
         return HeadPos;
     }
-    
+
     public override void OnTakeDamage(ActorObj attacker, Skill skill, BulletObj bullet)
     {
-        
+
     }
 
     public override void OnHit(ActorObj target)
     {
-        
+
     }
 
     public override void OnDeath()
@@ -61,6 +61,6 @@ public class PlayerObj : ActorObj
 
     public override void OnHeal(int hp)
     {
-        
+
     }
 }

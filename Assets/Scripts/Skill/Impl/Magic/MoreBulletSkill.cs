@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Model.Skill.Impl.Magic
 {
-    public class MoreBulletSkill: AbstractSkill
+    public class MoreBulletSkill : AbstractSkill
     {
         public override void UseSkill(ActorObj userObj)
         {
@@ -23,11 +23,11 @@ namespace Model.Skill.Impl.Magic
                 screenToWorldPoint.z = 0;
                 var toWorldPoint = screenToWorldPoint - but.transform.position;
                 //计算角度
-                var angle = Mathf.Atan2(toWorldPoint.y, toWorldPoint.x) * Mathf.Rad2Deg + ((i-1) * 45);
+                var angle = Mathf.Atan2(toWorldPoint.y, toWorldPoint.x) * Mathf.Rad2Deg + ((i - 1) * 45);
                 //but旋转
                 but.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
-            
+
         }
     }
 }

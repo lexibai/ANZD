@@ -15,13 +15,13 @@ namespace Actor
         //角色数据
         public ActorBaseData actorData => ComputationalAttr();
         public ActorData originalActorData = new ActorData();
-        
+
         //角色状态
         public ActorState actorState = new ActorState();
 
         //角色刚体
         public Rigidbody2D rb;
-        
+
         public List<BaseBuffObj> buffs = new List<BaseBuffObj>();
 
         protected virtual void Start()
@@ -50,7 +50,7 @@ namespace Actor
         /// </summary>
         /// <param name="target"></param>
         public abstract void OnHit(ActorObj target);
-        
+
         /// <summary>
         /// 死亡触发
         /// </summary>
@@ -73,7 +73,7 @@ namespace Actor
             }
             return actorData;
         }
-        
+
         public IArchitecture GetArchitecture()
         {
             return GameArch.Interface;

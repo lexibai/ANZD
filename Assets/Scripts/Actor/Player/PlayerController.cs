@@ -88,8 +88,8 @@ public class PlayerController : MonoBehaviour, IController
         int facingDir = transform.eulerAngles.y < 180 ? 1 : -1;
 
         // 修改移动方式，基于 transform 的朝向进行前后移动
-        
-        Vector2 moveDirection = transform.up * movement.y + transform.right * (movement.x*facingDir);
+
+        Vector2 moveDirection = transform.up * movement.y + transform.right * (movement.x * facingDir);
         //transform.Translate(moveDirection * (playobj.actorData.moveSpeed * Time.deltaTime), Space.World);
         playobj.Move(moveDirection);
 
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour, IController
             animator.SetInteger("speed", speedParam);
         }
 
-        
+
 
 
         Fire();

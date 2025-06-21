@@ -9,7 +9,7 @@ using UnityEngine;
 public class EnemyObj : ActorObj
 {
     private ActorObj targetActor;
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -22,7 +22,7 @@ public class EnemyObj : ActorObj
     protected override void Update()
     {
         base.Update();
-        
+
         if (targetActor != null)
         {
             //接近玩家
@@ -30,7 +30,7 @@ public class EnemyObj : ActorObj
 
             //移动
             Move(direction);
-            
+
             if (Vector3.Distance(targetActor.transform.position, transform.position) < 1.5f)
             {
                 //伤害玩家
@@ -43,23 +43,23 @@ public class EnemyObj : ActorObj
 
     public override void OnTakeDamage(ActorObj attacker, Skill skill, BulletObj bullet)
     {
-            #region 计算方向
-            Vector3 dir = Vector3.down;
-            if (bullet != null)
-            {
-                dir = bullet.transform.right.normalized;
-            }
-            else if (attacker != null)
-            {
-                dir = (this.transform.position - attacker.transform.position).normalized;
-            }
-            #endregion
+        #region 计算方向
+        Vector3 dir = Vector3.down;
+        if (bullet != null)
+        {
+            dir = bullet.transform.right.normalized;
+        }
+        else if (attacker != null)
+        {
+            dir = (this.transform.position - attacker.transform.position).normalized;
+        }
+        #endregion
         BloodFactory.Instance.CreateDefBlood(transform, dir);
     }
 
     public override void OnHit(ActorObj target)
     {
-        
+
     }
 
     public override void OnDeath()
@@ -69,7 +69,7 @@ public class EnemyObj : ActorObj
 
     public override void OnHeal(int hp)
     {
-        
+
     }
 
     public override Transform GetFireTransform()

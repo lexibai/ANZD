@@ -15,12 +15,12 @@ namespace Buff
         /// buff存活时间
         /// </summary>
         public float nowTime = 0;
-        
+
         /// <summary>
         /// buff持续时间
         /// </summary>
         public float nowDuration = 0;
-        
+
         /// <summary>
         /// buff心跳时间
         /// </summary>
@@ -34,13 +34,13 @@ namespace Buff
         /// <summary>
         /// 当前层数
         /// </summary>
-        public int nowCount=0;
+        public int nowCount = 0;
 
         /// <summary>
         /// 被附加buff的actor
         /// </summary>
         public ActorObj ao;
-        
+
         private void TickTemp()
         {
             if (buffData.tickTime > 0)
@@ -54,21 +54,21 @@ namespace Buff
                 }
             }
         }
-        
+
         private void RemoveBuffTemp()
         {
             nowTime += Time.deltaTime;
             if (!buffData.canPermanent)
             {
-                nowDuration  += Time.deltaTime;
+                nowDuration += Time.deltaTime;
                 if (nowDuration >= buffData.duration)
                 {
                     RemoveBuff();
-                    
+
                 }
             }
         }
-        
+
         /// <summary>
         /// 持续运行buff
         /// </summary>
@@ -94,7 +94,7 @@ namespace Buff
         }
 
         #endregion
-        
+
 
         #region 外部回调
 

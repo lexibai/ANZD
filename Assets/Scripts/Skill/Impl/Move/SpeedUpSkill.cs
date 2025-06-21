@@ -8,15 +8,15 @@ using UnityEngine;
 
 namespace Model.Skill.Impl.Move
 {
-    public class SpeedUpSkill:  AbstractSkill
+    public class SpeedUpSkill : AbstractSkill
     {
-        
-        
+
+
         public override void UseSkill(ActorObj userObj)
         {
             var buffData = this.GetModel<BuffModel>().SelectBuffData(BuffAssets.技能临时加速);
             this.SendCommand<AddBuffCommand<BaseBuffObj>>(new AddBuffCommand<BaseBuffObj>(userObj, buffData));
-            
+
             //创建拖影
             var sprites = userObj.GetComponentsInChildren<SpriteRenderer>();
 
@@ -34,7 +34,7 @@ namespace Model.Skill.Impl.Move
             foreach (var sr in sprites)
             {
                 if (ReferenceEquals(sr, null)) continue;
-                
+
                 //创建残影对象
                 // 创建残影对象
                 GameObject afterImage = new GameObject("AfterImage");

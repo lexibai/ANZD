@@ -11,7 +11,7 @@ using QFramework;
 
 namespace Model.Skill
 {
-    public class SkillFactory:Singleton<SkillFactory>, ICanGetModel
+    public class SkillFactory : Singleton<SkillFactory>, ICanGetModel
     {
         private SkillFactory()
         {
@@ -25,7 +25,7 @@ namespace Model.Skill
             {SkillModelAssets.普通攻击, typeof(NormalAttack)},
             {SkillModelAssets.普通冲击波, typeof(ShockSkill)},
         };
-        
+
         public Skill CreateSkill(string skillLiteralQuantity)
         {
             if (skillMapping.ContainsKey(skillLiteralQuantity))

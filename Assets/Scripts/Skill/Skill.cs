@@ -4,15 +4,15 @@ using QFramework;
 
 namespace Model.Skill
 {
-    public interface Skill:ICloneable
+    public interface Skill : ICloneable
     {
         public SkillData skillData { get; set; }
-        
+
         /// <summary>
         /// 当前的cd
         /// </summary>
         public float nowCd { get; set; }
-        
+
         /// <summary>
         /// 使用技能
         /// </summary>
@@ -25,9 +25,9 @@ namespace Model.Skill
         /// <param name="userObj"></param>
         /// <returns></returns>
         public bool CanUse(ActorObj userObj);
-        
+
         void Init(SkillData skillData);
-        
-        
+
+
     }
 }

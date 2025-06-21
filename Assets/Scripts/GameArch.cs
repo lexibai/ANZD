@@ -17,11 +17,11 @@ namespace DefaultNamespace
             {
                 ResKit.Init();
             }
-            
+
             EnemyMgr.Instance.Init();
             BloodFactory.Instance.Init();
 
-            
+
             //buff模型
             RegisterModel<BuffModel>(new BuffModel());
             //技能模型

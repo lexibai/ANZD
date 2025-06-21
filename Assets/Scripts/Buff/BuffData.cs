@@ -5,9 +5,9 @@ using Sirenix.OdinInspector;
 
 namespace Buff
 {
-    
+
     [Serializable]
-    public class BuffData: ICloneable
+    public class BuffData : ICloneable
     {
         [VerticalGroup("基本属性")]
         public int id;
@@ -15,21 +15,21 @@ namespace Buff
         [VerticalGroup("基本属性")]
         [LabelText("名称")]
         public string name;
-        
+
         /// <summary>
         /// buff字面量, 要求buff中唯一
         /// </summary>
         [VerticalGroup("基本属性")]
         [LabelText("字面量")]
         public string buffLiteralQuantity;
-        
+
         /// <summary>
         /// 优先级
         /// </summary>
         [VerticalGroup("基本属性")]
         [LabelText("优先级")]
         public int priority;
-        
+
         /// <summary>
         /// 持续时间
         /// </summary>
@@ -43,7 +43,7 @@ namespace Buff
         [VerticalGroup("基本属性")]
         [LabelText("心跳间隔")]
         public float tickTime;
-        
+
         /// <summary>
         /// 是否可永久存在
         /// </summary>
@@ -64,21 +64,21 @@ namespace Buff
         [VerticalGroup("选项")]
         [LabelText("增加时间")]
         public bool addDuration;
-        
+
         /// <summary>
         /// 最大层数
         /// </summary>
         [VerticalGroup("基本属性")]
         [LabelText("最大层数")]
         public int maxCount;
-        
+
         /// <summary>
         /// 标签
         /// </summary>
         [VerticalGroup("标签列表")]
         [LabelText("标签")]
         public List<string> tags;
-        
+
         /// <summary>
         /// 添加的属性
         /// </summary>
@@ -90,7 +90,7 @@ namespace Buff
         {
             var memberwiseClone = (BuffData)this.MemberwiseClone();
             memberwiseClone.tags = new List<string>(tags);
-            memberwiseClone.addAttrs  = new ActorBaseData[2];
+            memberwiseClone.addAttrs = new ActorBaseData[2];
             for (int i = 0; i < addAttrs.Length; i++)
             {
                 memberwiseClone.addAttrs[i] = (ActorBaseData)addAttrs[i].Clone();

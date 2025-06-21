@@ -13,7 +13,7 @@ namespace Buff.Command
             this.ao = ao;
             this.buffData = buffData;
         }
-        
+
         protected override void OnExecute()
         {
             //检查ao是否已经包含此buff
@@ -30,7 +30,7 @@ namespace Buff.Command
                 //如果包含, 触发新增事件
                 buffObj.TriggerAddBuff();
             }
-            
+
         }
 
         private TBaseBuffObj AddBuff<TBaseBuffObj>(ActorObj actorObj, BuffData buffData1) where TBaseBuffObj : BaseBuffObj, new()
@@ -39,8 +39,8 @@ namespace Buff.Command
             buffObj.buffData = buffData1;
             buffObj.ao = actorObj;
             actorObj.buffs.Add(buffObj);
-            
-            actorObj.buffs.Sort((x, y) 
+
+            actorObj.buffs.Sort((x, y)
                 => x.buffData.priority.CompareTo(y.buffData.priority));
 
             return buffObj;

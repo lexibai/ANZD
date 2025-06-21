@@ -4,7 +4,7 @@ using QFramework;
 
 namespace Model.Skill
 {
-    public abstract class AbstractSkill:IController, Skill
+    public abstract class AbstractSkill : IController, Skill
     {
         public IArchitecture GetArchitecture()
         {
@@ -32,7 +32,7 @@ namespace Model.Skill
         /// <returns></returns>
         public virtual bool CanUse(ActorObj userObj)
         {
-            
+
             return true;
         }
     }

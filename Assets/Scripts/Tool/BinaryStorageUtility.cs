@@ -27,8 +27,8 @@ namespace Tool
             {
                 return Data<T>(fileName, true);
             }
-            
-            
+
+
             if (FileExists(fileName, false))
             {
                 return Data<T>(fileName, false);

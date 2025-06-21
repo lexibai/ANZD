@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 namespace Model.Skill
 {
     [Serializable]
-    public class SkillData:ICloneable
+    public class SkillData : ICloneable
     {
         public int id;
 
@@ -13,7 +13,7 @@ namespace Model.Skill
         /// </summary>
         [LabelText("技能名称")]
         public string name;
-        
+
         /// <summary>
         /// 技能字面量
         /// </summary>
@@ -25,14 +25,14 @@ namespace Model.Skill
         /// </summary>
         [LabelText("技能冷却时间")]
         public float cd;
-        
+
         /// <summary>
         /// 基础伤害
         /// </summary>
         [LabelText("基础伤害")]
         public int baseDamage = 10;
-        
-        
+
+
         public object Clone()
         {
             return MemberwiseClone();

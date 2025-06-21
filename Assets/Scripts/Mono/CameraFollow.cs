@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Mono
 {
-    public class CameraFollow:MonoBehaviour
+    public class CameraFollow : MonoBehaviour
     {
         private Transform playerTransform;
 
@@ -11,7 +11,7 @@ namespace DefaultNamespace.Mono
         {
             playerTransform = PlayerObj.Instance?.transform;
         }
-        
+
         private void Update()
         {
             if (playerTransform == null)

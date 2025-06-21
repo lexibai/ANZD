@@ -2,6 +2,7 @@
 using Blood;
 using Buff;
 using Combat;
+using LogKit;
 using Model.Skill;
 using QFramework;
 using Tool;
@@ -26,6 +27,8 @@ namespace DefaultNamespace
             RegisterModel<BuffModel>(new BuffModel());
             //技能模型
             RegisterModel<SkillModel>(new SkillModel());
+            // 日志配置模型
+            RegisterModel<LogConfig>(new LogConfig());
 
             // 战斗系统
             RegisterSystem<CombatMgr>(new CombatMgr());

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using LogTool;
 using QFramework;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace Tool
             using FileStream stream = new FileStream(GetFullPath(fileName, config), FileMode.Open);
             T data = (T)formatter.Deserialize(stream);
             stream.Close();
-            Debug.Log($"成功加载文件 {fileName}");
+            XLog.Instance.info($"成功加载文件 {fileName}");
             return data;
         }
 

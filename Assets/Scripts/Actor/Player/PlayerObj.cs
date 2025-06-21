@@ -1,5 +1,6 @@
 using Actor;
 using Bullet;
+using LogTool;
 using Model.Skill;
 using UnityEngine;
 
@@ -56,7 +57,7 @@ public class PlayerObj : ActorObj
 
     public override void OnDeath()
     {
-        print("游戏结束");
+        XLog.Instance.info("游戏结束");
     }
 
     public override void OnHeal(int hp)

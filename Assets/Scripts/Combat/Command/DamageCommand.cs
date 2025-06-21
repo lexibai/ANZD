@@ -2,7 +2,7 @@
 using Bullet;
 using Model.Skill;
 using QFramework;
-using UnityEngine;
+using LogTool;
 
 namespace Combat.Command
 {
@@ -23,7 +23,7 @@ namespace Combat.Command
 
         protected override void OnExecute()
         {
-            Debug.Log($"攻击命令被触发: {attacker.name} 对 {target.name}.\n    技能：{skill?.skillData?.name}\n    子弹：{bullet?.bulletData?.color}");
+            XLog.Instance.info($"攻击命令被触发: {attacker.name} 对 {target.name}.\n    技能：{skill?.skillData?.name}\n    子弹：{bullet?.bulletData?.color}");
             var combatMgr = this.GetSystem<CombatMgr>();
             combatMgr.CalculateDamage(attacker, target, skill, bullet);
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Bullet
 {
+    [Serializable]
     public class BulletData : ICloneable
     {
         /// <summary>

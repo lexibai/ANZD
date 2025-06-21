@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using Actor;
 using Buff.Command;
 using Combat.Command;
@@ -8,7 +6,6 @@ using DefaultNamespace;
 using Model.Skill;
 using QFramework;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Bullet
 {
@@ -86,7 +83,6 @@ namespace Bullet
                 // 可视化调试
                 // 绘制检测圆球（未命中时也可见）
                 // 绘制圆形检测范围
-                //DrawCircle(transform.position, 25f, Color.green);
                 foreach (var hit in overlapCircleAll)
                 {
                     foreach (var bulletDataTargetTag in bulletData.targetTags)
@@ -94,6 +90,7 @@ namespace Bullet
                         if (hit.transform.gameObject.CompareTag(bulletDataTargetTag))
                         {
                             bulletData.selectTarget = hit.transform.gameObject;
+                            break;
                         }
                     }
                 }

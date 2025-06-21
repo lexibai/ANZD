@@ -1,6 +1,7 @@
 ﻿using Actor.Enemy;
 using Blood;
 using Buff;
+using Bullet;
 using Combat;
 using LogTool;
 using Model.Skill;
@@ -30,6 +31,8 @@ namespace DefaultNamespace
             RegisterModel<SkillModel>(new SkillModel());
             // 日志配置模型
             RegisterModel<LogConfig>(new LogConfig());
+            // 子弹模型
+            RegisterModel<BulletModel>(new BulletModel());
 
             // 战斗系统
             RegisterSystem<CombatMgr>(new CombatMgr());

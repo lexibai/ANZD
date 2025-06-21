@@ -72,7 +72,7 @@ using UnityEngine.InputSystem.Utilities;
 /// }
 /// </code>
 /// </example>
-public partial class @PlayerAction : IInputActionCollection2, IDisposable
+public partial class @PlayerAction: IInputActionCollection2, IDisposable
 {
     /// <summary>
     /// Provides access to the underlying asset instance.
@@ -149,6 +149,15 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""name"": ""MartialSkill"",
                     ""type"": ""Button"",
                     ""id"": ""72ea8051-92a8-4ba1-9a54-356cd06f1f04"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UltimateSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""51bda8cd-49b5-4bf4-b53c-580e217afca1"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -276,6 +285,17 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""action"": ""MartialSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a46ee0e-264f-4088-beeb-3fc36f5d2fc9"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UltimateSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,6 +311,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_DefMaps_MagicSkill = m_DefMaps.FindAction("MagicSkill", throwIfNotFound: true);
         m_DefMaps_AttackSkill = m_DefMaps.FindAction("AttackSkill", throwIfNotFound: true);
         m_DefMaps_MartialSkill = m_DefMaps.FindAction("MartialSkill", throwIfNotFound: true);
+        m_DefMaps_UltimateSkill = m_DefMaps.FindAction("UltimateSkill", throwIfNotFound: true);
     }
 
     ~@PlayerAction()
@@ -378,6 +399,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_DefMaps_MagicSkill;
     private readonly InputAction m_DefMaps_AttackSkill;
     private readonly InputAction m_DefMaps_MartialSkill;
+    private readonly InputAction m_DefMaps_UltimateSkill;
     /// <summary>
     /// Provides access to input actions defined in input action map "DefMaps".
     /// </summary>
@@ -417,6 +439,10 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "DefMaps/MartialSkill".
         /// </summary>
         public InputAction @MartialSkill => m_Wrapper.m_DefMaps_MartialSkill;
+        /// <summary>
+        /// Provides access to the underlying input action "DefMaps/UltimateSkill".
+        /// </summary>
+        public InputAction @UltimateSkill => m_Wrapper.m_DefMaps_UltimateSkill;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -464,6 +490,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
             @MartialSkill.started += instance.OnMartialSkill;
             @MartialSkill.performed += instance.OnMartialSkill;
             @MartialSkill.canceled += instance.OnMartialSkill;
+            @UltimateSkill.started += instance.OnUltimateSkill;
+            @UltimateSkill.performed += instance.OnUltimateSkill;
+            @UltimateSkill.canceled += instance.OnUltimateSkill;
         }
 
         /// <summary>
@@ -496,6 +525,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
             @MartialSkill.started -= instance.OnMartialSkill;
             @MartialSkill.performed -= instance.OnMartialSkill;
             @MartialSkill.canceled -= instance.OnMartialSkill;
+            @UltimateSkill.started -= instance.OnUltimateSkill;
+            @UltimateSkill.performed -= instance.OnUltimateSkill;
+            @UltimateSkill.canceled -= instance.OnUltimateSkill;
         }
 
         /// <summary>
@@ -585,5 +617,12 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMartialSkill(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UltimateSkill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUltimateSkill(InputAction.CallbackContext context);
     }
 }

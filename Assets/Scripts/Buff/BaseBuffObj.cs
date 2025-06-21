@@ -64,7 +64,6 @@ namespace Buff
                 if (nowDuration >= buffData.duration)
                 {
                     RemoveBuff();
-
                 }
             }
         }
@@ -103,6 +102,7 @@ namespace Buff
         /// </summary>
         public void TriggerAddBuff()
         {
+            // 添加 重置计时
             nowCount = Math.Clamp(nowCount + 1, 0, buffData.maxCount);
             if (buffData.resetDuration)
             {
@@ -112,6 +112,8 @@ namespace Buff
             {
                 nowDuration -= buffData.duration;
             }
+
+            //调用添加buff回调
             Additional();
         }
 

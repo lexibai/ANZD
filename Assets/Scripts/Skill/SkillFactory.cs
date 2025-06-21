@@ -7,6 +7,7 @@ using Model.Skill.Impl.Attack;
 using Model.Skill.Impl.Magic;
 using Model.Skill.Impl.MartialSkill;
 using Model.Skill.Impl.Move;
+using Model.Skill.Impl.Ultimate;
 using QFramework;
 
 namespace Model.Skill
@@ -24,6 +25,7 @@ namespace Model.Skill
             {SkillModelAssets.八个子弹, typeof(MoreBulletSkill)},
             {SkillModelAssets.普通攻击, typeof(NormalAttack)},
             {SkillModelAssets.普通冲击波, typeof(ShockSkill)},
+            {SkillModelAssets.引爆炎烬个体, typeof(UltimateSkill)},
         };
 
         public Skill CreateSkill(string skillLiteralQuantity)

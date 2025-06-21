@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Buff;
 using UnityEngine;
 
 namespace Bullet
@@ -53,6 +54,11 @@ namespace Bullet
         /// 子弹可攻击目标
         /// </summary>
         public List<string> targetTags = new List<string>() { "Enemy" };
+
+        /// <summary>
+        /// 要对附加对象添加的buff
+        /// </summary>
+        public Dictionary<BuffData, Type> addBuffs = new();
 
 
         /// <summary>

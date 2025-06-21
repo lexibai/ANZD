@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Actor;
+using Buff.Command;
 using Combat.Command;
 using DefaultNamespace;
 using Model.Skill;
@@ -116,31 +117,12 @@ namespace Bullet
             #endregion
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            foreach (var bulletDataTargetTag in bulletData.targetTags)
+            if (IsEnemyTag(other))
             {
-                if (other.CompareTag(bulletDataTargetTag))
-                {
-                    if (--bulletData.hitNum <= 0)
-                    {
-                        BulletFactory.Instance.RecycleBullet(this);
-                    }
-
-                    var enemyObj = other.gameObject.GetComponent<EnemyObj>();
-
-                    //对敌人施加力
-                    Rigidbody2D enemyRb = enemyObj.GetComponent<Rigidbody2D>();
-                    enemyRb.AddForce(transform.right * bulletData.force, ForceMode2D.Impulse);
-
-                    //伤害敌人
-                    this.SendCommand<DamageCommand>(
-                        new DamageCommand(attacker, other.gameObject.GetComponent<ActorObj>(), skill, this)
-                        );
-                    return;
-                }
+                HandleEnemyEnter(other);
             }
-
 
         }
 
@@ -171,19 +153,44 @@ namespace Bullet
             return GameArch.Interface;
         }
 
-        void DrawCircle(Vector3 center, float radius, Color color)
+        private bool IsEnemyTag(Collider2D other)
         {
-            int segments = 36; // 圆的精度
-            Vector3 previousPoint = center + new Vector3(radius, 0f, 0f);
-
-            for (int i = 1; i <= segments; i++)
+            foreach (var bulletDataTargetTag in bulletData.targetTags)
             {
-                float angle = i * (360f / segments) * Mathf.Deg2Rad;
-                Vector3 newPoint = center + new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
-                Debug.DrawLine(previousPoint, newPoint, color);
-                previousPoint = newPoint;
+                if (other.CompareTag(bulletDataTargetTag))
+                {
+                    return true;
+                }
             }
+            return false;
         }
+
+        private void HandleEnemyEnter(Collider2D other)
+        {
+            if (--bulletData.hitNum <= 0)
+            {
+                BulletFactory.Instance.RecycleBullet(this);
+            }
+
+            var enemyObj = other.gameObject.GetComponent<EnemyObj>();
+
+            // 对敌人施加力
+            Rigidbody2D enemyRb = enemyObj.GetComponent<Rigidbody2D>();
+            enemyRb.AddForce(transform.right * bulletData.force, ForceMode2D.Impulse);
+
+            // 添加buff
+            foreach (var buffItem in bulletData.addBuffs)
+            {
+                this.SendCommand<AddBuffCommand>(new AddBuffCommand(enemyObj, buffItem.Key, buffItem.Value));
+            }
+
+            // 伤害敌人
+            this.SendCommand<DamageCommand>(
+                new DamageCommand(attacker, other.gameObject.GetComponent<ActorObj>(), skill, this)
+            );
+        }
+
+
 
 
     }

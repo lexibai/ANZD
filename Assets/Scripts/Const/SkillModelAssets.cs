@@ -7,5 +7,6 @@ namespace Const
         public const string 八个子弹 = "八个子弹";
         public const string 普通攻击 = "普通攻击";
         public const string 普通冲击波 = "普通冲击波";
+        public const string 引爆炎烬个体 = "引爆炎烬个体";
     }
 }

@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour, IController
     public Skill moveSkill;
     public Skill magicSkill;
     public Skill atkSkill;
-
     public Skill martialSkill;
+    public Skill ultimateSkill;
 
     private void Awake()
     {
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour, IController
         magicSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.八个子弹);
         atkSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通攻击);
         martialSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.普通冲击波);
+        ultimateSkill = SkillFactory.Instance.CreateSkill(SkillModelAssets.引爆炎烬个体);
     }
 
     private void OnEnable()
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MagicSkill.performed += MagicSkill;
         playerAction.DefMaps.AttackSkill.performed += AtkSkill;
         playerAction.DefMaps.MartialSkill.performed += MartialSkill;
+        playerAction.DefMaps.UltimateSkill.performed += UltimateSkill;
         playerAction.Enable();
     }
 
@@ -125,6 +127,7 @@ public class PlayerController : MonoBehaviour, IController
         playerAction.DefMaps.MagicSkill.performed -= MagicSkill;
         playerAction.DefMaps.AttackSkill.performed -= AtkSkill;
         playerAction.DefMaps.MartialSkill.performed -= MartialSkill;
+        playerAction.DefMaps.UltimateSkill.performed -= UltimateSkill;
         playerAction.Disable();
     }
 
@@ -204,6 +207,11 @@ public class PlayerController : MonoBehaviour, IController
     public void AtkSkill(InputAction.CallbackContext ctx)
     {
         this.SendCommand<bool>(new UseSkillCommand(playobj, atkSkill));
+    }
+
+    public void UltimateSkill(InputAction.CallbackContext ctx)
+    {
+        this.SendCommand<bool>(new UseSkillCommand(playobj, ultimateSkill));
     }
 
     public IArchitecture GetArchitecture()

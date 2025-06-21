@@ -29,7 +29,7 @@ namespace Model.Skill.Impl.Ultimate
                 // 生成子弹
                 BulletObj bulletObj = BulletFactory.Instance.CreateBullet(new BulletData()
                 {
-                    lifeTime = 0.2f,
+                    lifeTime = 0.5f,
                     moveSpeed = 0,
                     color = new Color(1, 0, 0, 0.3f)
                 }, userObj, this);

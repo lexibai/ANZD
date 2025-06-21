@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using LogTool;
 using QFramework;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Tool;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Bullet
     [Serializable]
     public class BulletModel : AbstractModel
     {
+        [OdinSerialize]
         public List<BulletData> data = null;
         protected override void OnInit()
         {

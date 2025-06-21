@@ -11,6 +11,11 @@
 namespace QAssetBundle
 {
     
+    public class Bloodeff
+    {
+        public const string BundleName = "bloodeff";
+        public const string DEFBLOOD = "defBlood";
+    }
     public class Bullet_prefab
     {
         public const string BundleName = "bullet_prefab";

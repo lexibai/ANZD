@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Buff;
 using Bullet;
@@ -90,7 +90,7 @@ namespace Actor
         }
 
 
-        public void Move(Vector2 direction)
+        public void Move(UnityEngine.Vector2 direction)
         {
             if (rb.linearVelocity.magnitude < actorData.moveSpeed)
             {

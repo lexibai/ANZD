@@ -71,6 +71,8 @@ namespace Combat
             // 伤害不能小于1
             baseDamage = Math.Clamp(baseDamage, 1, baseDamage);
 
+
+
             // 造成伤害并触发回调
             target.originalActorData.nowHp -= (int)baseDamage;
             target.OnTakeDamage(attacker, skill, bullet);

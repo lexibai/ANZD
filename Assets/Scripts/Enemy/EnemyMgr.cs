@@ -31,11 +31,11 @@ namespace Actor.Enemy
         private void Awake()
         {
             enemyPrefab = Resources.Load<GameObject>("Enemy");
-            enemyGenerateInfos.Add(new EnemyGenerateInfo()
-            {
-                prefab = enemyPrefab,
-                num = 10000
-            });
+            // enemyGenerateInfos.Add(new EnemyGenerateInfo()
+            // {
+            //     prefab = enemyPrefab,
+            //     num = 10000
+            // });
         }
 
         private void Update()

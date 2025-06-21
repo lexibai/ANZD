@@ -1,4 +1,5 @@
 ﻿using Actor.Enemy;
+using Blood;
 using Buff;
 using Combat;
 using Model.Skill;
@@ -18,6 +19,8 @@ namespace DefaultNamespace
             }
             
             EnemyMgr.Instance.Init();
+            BloodFactory.Instance.Init();
+
             
             //buff模型
             RegisterModel<BuffModel>(new BuffModel());

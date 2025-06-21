@@ -1,4 +1,5 @@
 using Actor;
+using Blood;
 using Bullet;
 using Combat.Command;
 using Model.Skill;
@@ -42,7 +43,18 @@ public class EnemyObj : ActorObj
 
     public override void OnTakeDamage(ActorObj attacker, Skill skill, BulletObj bullet)
     {
-        
+            #region 计算方向
+            Vector3 dir = Vector3.down;
+            if (bullet != null)
+            {
+                dir = bullet.transform.right.normalized;
+            }
+            else if (attacker != null)
+            {
+                dir = (this.transform.position - attacker.transform.position).normalized;
+            }
+            #endregion
+        BloodFactory.Instance.CreateDefBlood(transform, dir);
     }
 
     public override void OnHit(ActorObj target)

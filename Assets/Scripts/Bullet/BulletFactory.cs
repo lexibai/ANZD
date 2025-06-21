@@ -25,7 +25,6 @@ namespace Bullet
             {
                 //移除碰撞组件
                 Object.Destroy(o.GetComponent<Collider2D>());
-
                 o.SetActive(false);
             }, 50);
         }
@@ -40,12 +39,12 @@ namespace Bullet
             bulletObj.attacker = attacker;
             bulletObj.bulletData = data.Clone() as BulletData;
 
-            // 子弹实体设置
+            // 子弹实体设置, 必须先设置精灵图片再设置碰撞器，否则碰撞会使用上次的精灵碰撞
             but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
-            but.AddComponent<PolygonCollider2D>();
             var sprite = but.GetComponent<SpriteRenderer>();
             sprite.sprite = rl.LoadSync<Sprite>(data.spriteAss);
             sprite.color = data.color;
+            but.AddComponent<PolygonCollider2D>();
             but.SetActive(true);
             return bulletObj;
         }

@@ -94,7 +94,7 @@ namespace Actor
         {
             if (rb.linearVelocity.magnitude < actorData.moveSpeed)
             {
-                rb.AddForce(direction * actorData.moveSpeed);
+                rb.AddForce(direction * (actorData.moveSpeed * 10));
             }
         }
 

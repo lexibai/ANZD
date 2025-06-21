@@ -1,4 +1,4 @@
-namespace LogKit
+namespace LogTool
 {
     public enum LogLevelType
     {

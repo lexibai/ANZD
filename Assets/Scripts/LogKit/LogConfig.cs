@@ -2,7 +2,7 @@ using System;
 using QFramework;
 using Tool;
 
-namespace LogKit
+namespace LogTool
 {
     [Serializable]
     public class LogConfig : AbstractModel

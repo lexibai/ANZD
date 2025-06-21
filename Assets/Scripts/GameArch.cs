@@ -2,7 +2,7 @@
 using Blood;
 using Buff;
 using Combat;
-using LogKit;
+using LogTool;
 using Model.Skill;
 using QFramework;
 using Tool;
@@ -17,10 +17,11 @@ namespace DefaultNamespace
             if (Application.isPlaying)
             {
                 ResKit.Init();
+                EnemyMgr.Instance.Init();
+                BloodFactory.Instance.Init();
             }
 
-            EnemyMgr.Instance.Init();
-            BloodFactory.Instance.Init();
+            
 
 
             //buff模型

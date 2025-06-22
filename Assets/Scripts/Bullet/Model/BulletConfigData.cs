@@ -117,7 +117,7 @@ namespace Bullet
         [VerticalGroup("MainGroup/Right")]
         [BoxGroup("MainGroup/Right/添加buff", showLabel: true)]
         [LabelText("添加buff")]
-        public List<BulletAddBuffConfigInfo> addBuffs = new();
+        public List<BulletAddBuffConfigInfo> addBuffs = new List<BulletAddBuffConfigInfo>();
 
         public object Clone()
         {

@@ -1,7 +1,9 @@
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Buff.BuffList
 {
+    [DisplayName("标记效果")]
     public class MarkBuff : BaseBuffObj
     {
         public Color oldColor = default;

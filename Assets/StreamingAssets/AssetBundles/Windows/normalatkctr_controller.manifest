@@ -1,25 +1,27 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.47f1
-CRC: 307642422
+CRC: 3292102076
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 89604bc4aeca1b22de717728eaa79bf8
+    Hash: af7c70950596206577487f980f5ac6f0
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 9f349c36d7a6532f767333f9299b3e74
+    Hash: 5139a28ff5cc875fadfcec05a2a9a14b
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 3f3b44599eaa5ef1d277230b9bcccad3
+    Hash: 282e942ebb88acbc6aac1375aa668f78
 HashAppended: 0
 ClassTypes:
 - Class: 28
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Art/bulletEff/Circle.png
-- "Assets/Art/bulletEff/atlas_50_\u5200\u6C14.png"
-- Assets/Art/bulletEff/Rhombic.png
+- Assets/Art/skillEff/NormalAtk/normalAtkCtr.controller
 Dependencies: []

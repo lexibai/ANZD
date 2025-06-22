@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.47f1
-CRC: 2970603067
+CRC: 3672167451
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9ddfaea7d80184da7686d2b88b73f581
+    Hash: cc4c309b95caa5d39824126214e9851d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 378a72322b81c3c123b1891165fda2a4
+    Hash: b6bcdbe4e01a632dd035313473de119a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 9fdb6439d43c5c1750ee09c04cbe9a91
+    Hash: 28879ac523055b938b487ed2e628ecfe
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,7 +21,9 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 32a50151bd0a47b4a7c93287bc3392cc, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Bullet.BulletData
 Assets:
 - Assets/Art/bullet.prefab
 Dependencies: []

@@ -1,15 +1,13 @@
-﻿using System;
-using Actor;
+﻿using Actor;
 using Buff;
 using Buff.Command;
 using Combat.Command;
 using Const;
+using QAssetBundle;
 using QFramework;
 using Tool;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Object = UnityEngine.Object;
 
 
 namespace Model.Skill.Impl.Attack
@@ -17,12 +15,12 @@ namespace Model.Skill.Impl.Attack
     public class NormalAttack : AbstractSkill
     {
         private ResLoader rl = ResLoader.Allocate();
-        private AnimatorController normalAnimatorController;
+        private RuntimeAnimatorController normalAnimatorController;
 
         public NormalAttack()
         {
             //rl.Add2Load<AnimatorController>(QAssetBundle.Skilleff.NORMALATKCTR, (b, res) =>
-            normalAnimatorController = rl.LoadSync<AnimatorController>("normalAtkCtr");
+            normalAnimatorController = rl.LoadSync<RuntimeAnimatorController>(Normalatkctr_controller.NORMALATKCTR);
         }
 
         public override void UseSkill(ActorObj userObj)

@@ -12,7 +12,7 @@ namespace Buff
 
         protected override void OnInit()
         {
-            data = this.GetUtility<IStorageUtility>().Load<BuffModel>(nameof(BuffModel)).data;
+            data = this.GetUtility<IStorageUtility>().Load<BuffModel>(nameof(BuffModel))?.data;
         }
 
         public void Save()

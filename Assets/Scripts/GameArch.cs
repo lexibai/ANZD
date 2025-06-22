@@ -35,7 +35,7 @@ namespace DefaultNamespace
             RegisterSystem<CombatMgr>(new CombatMgr());
 
             // 持久化工具
-            RegisterUtility<IStorageUtility>(new BinaryStorageUtility());
+            RegisterUtility<IStorageUtility>(new OdinStorageUtility());
         }
     }
 }

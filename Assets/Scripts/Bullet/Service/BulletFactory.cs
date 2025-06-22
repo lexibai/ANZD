@@ -40,6 +40,13 @@ namespace Bullet
             }, 50);
         }
 
+        /// <summary>
+        /// 创建子弹
+        /// </summary>
+        /// <param name="data">子弹数据</param>
+        /// <param name="attacker">发射者，可为空</param>
+        /// <param name="skill"></param>
+        /// <returns></returns>
         public BulletObj CreateBullet(BulletData data, ActorObj attacker = null, Skill skill = null)
         {
             var but = bulletPool.Allocate();
@@ -51,7 +58,7 @@ namespace Bullet
             bulletObj.bulletData = data.Clone() as BulletData;
             bulletObj.soPool = bulletPool;
             // 子弹实体设置, 必须先设置精灵图片再设置碰撞器，否则碰撞会使用上次的精灵碰撞
-            but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
+            but.transform.position = attacker?.GetFireTransform()?.position ?? Vector3.zero;
             var sprite = but.GetComponent<SpriteRenderer>();
             sprite.sprite = rl.LoadSync<Sprite>(data.spriteAss);
             sprite.color = data.color;

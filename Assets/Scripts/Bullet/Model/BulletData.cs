@@ -10,17 +10,23 @@ namespace Bullet
     [Serializable]
     public class BulletData : ICloneable
     {
-        // 子弹名称
+        /// <summary>
+        /// 子弹名称
+        /// </summary>
         [VerticalGroup("基础数据")]
         [LabelText("子弹名称")]
         public string name;
 
-        // 技能基础伤害
+        /// <summary>
+        /// 子弹基础伤害
+        /// </summary>
         [VerticalGroup("基础数据")]
         [LabelText("基础伤害")]
         public int baseDamage = 10;
 
-        // 子弹移动速度
+        /// <summary>
+        /// 子弹移动速度
+        /// </summary>
         [VerticalGroup("基础数据")]
         [LabelText("移动速度")]
         public int moveSpeed = 40;
@@ -93,6 +99,9 @@ namespace Bullet
         [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
 
+        /// <summary>
+        /// 子弹颜色
+        /// </summary>
         [OdinSerialize]
         [VerticalGroup("视觉效果")]
         [LabelText("颜色")]

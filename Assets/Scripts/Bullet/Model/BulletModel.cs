@@ -25,6 +25,9 @@ namespace Bullet
             ResetBulletData();
         }
 
+        /// <summary>
+        /// 保存数据
+        /// </summary>
         public void Save()
         {
             this.GetUtility<IStorageUtility>().Save<BulletModel>(this, nameof(BulletModel), true);

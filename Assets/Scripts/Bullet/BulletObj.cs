@@ -28,11 +28,6 @@ namespace Bullet
         public ActorObj attacker;
 
         /// <summary>
-        /// 销毁协程
-        /// </summary>
-        private Coroutine destroyRoutine;
-
-        /// <summary>
         /// 子弹数据
         /// </summary>
         public BulletData bulletData = new BulletData();
@@ -49,14 +44,15 @@ namespace Bullet
             spriteRenderer.sprite = Resources.Load<Sprite>("Circle");
         }
 
-
-        private void Start()
-        {
-        }
-
         private void OnEnable()
         {
-            destroyRoutine = StartCoroutine(DestroyAfterDelay(bulletData.lifeTime));
+            ActionKit.Delay(bulletData.lifeTime, () =>
+            {
+                if (gameObject.activeSelf)
+                {
+                    soPool.Recycle(gameObject);
+                }
+            }).Start(this);
             hitCollider = this.gameObject.GetComponent<Collider2D>();
             if (hitCollider != null)
             {
@@ -69,56 +65,72 @@ namespace Bullet
             transform.Translate(Vector3.right * (Time.deltaTime * bulletData.moveSpeed));
 
             #region 追踪
-
             if (bulletData.canTracking)
             {
-                bulletData.trackingStartTime -= Time.deltaTime;
-                if (bulletData.trackingStartTime < 0)
+                // 追踪开始时间和追踪时间计时
+                TrackTimer();
+
+                if (!(bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0))
                 {
-                    bulletData.trackingTime -= Time.deltaTime;
+                    return;
                 }
-            }
 
-            if (bulletData.canTracking && !bulletData.selectTarget && bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0)
-            {
-                //圆形检测
-                var overlapCircleAll = Physics2D.OverlapCircleAll(transform.position, 25f);
-
-
-                // 可视化调试
-                // 绘制检测圆球（未命中时也可见）
-                // 绘制圆形检测范围
-                foreach (var hit in overlapCircleAll)
+                // 检测一定范围内的敌人选择为追踪对象
+                if (bulletData.selectTarget == null)
                 {
-                    foreach (var bulletDataTargetTag in bulletData.targetTags)
+                    //圆形检测
+                    var overlapCircleAll = Physics2D.OverlapCircleAll(transform.position, 25f);
+
+
+                    // 检索敌人
+                    foreach (var hit in overlapCircleAll)
                     {
-                        if (hit.transform.gameObject.CompareTag(bulletDataTargetTag))
+                        if (IsEnemyTag(hit))
                         {
                             bulletData.selectTarget = hit.transform.gameObject;
                             break;
                         }
                     }
                 }
+                else
+                {
+                    TrackRotation();
+                }
             }
-
-            if (bulletData.selectTarget && bulletData.trackingTime > 0 && bulletData.trackingStartTime < 0)
-            {
-                Vector2 targetPos = bulletData.selectTarget.transform.position;
-                Vector2 dir = targetPos - (Vector2)transform.position;
-
-                // 计算目标旋转角度（让 X 轴指向目标）
-                Quaternion targetRotation = Quaternion.FromToRotation(Vector2.right, dir);
-
-                // 使用 Slerp 做平滑插值旋转（可调 speed 控制速度）
-                float trackingSpeed = bulletData.trackingSpeed; // 你可以定义一个 trackingSpeed 字段控制旋转速度
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, trackingSpeed * Time.deltaTime);
-            }
-
-
-
             #endregion
         }
 
+        // 追踪计时
+        public void TrackTimer()
+        {
+            bulletData.trackingStartTime -= Time.deltaTime;
+            if (bulletData.trackingStartTime < 0)
+            {
+                bulletData.trackingTime -= Time.deltaTime;
+            }
+        }
+
+        /// <summary>
+        /// 追踪旋转
+        /// </summary>
+        public void TrackRotation()
+        {
+            // 控制子弹移动
+            Vector2 targetPos = bulletData.selectTarget.transform.position;
+            Vector2 dir = targetPos - (Vector2)transform.position;
+
+            // 计算目标旋转角度（让 X 轴指向目标）
+            Quaternion targetRotation = Quaternion.FromToRotation(Vector2.right, dir);
+
+            // 使用 Slerp 做平滑插值旋转（可调 speed 控制速度）
+            float trackingSpeed = bulletData.trackingSpeed; // 你可以定义一个 trackingSpeed 字段控制旋转速度
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, trackingSpeed * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// 进入碰撞事件
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (IsEnemyTag(other))
@@ -128,32 +140,11 @@ namespace Bullet
 
         }
 
-        private IEnumerator DestroyAfterDelay(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            if (gameObject != null)
-            {
-                soPool.Recycle(gameObject);
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (destroyRoutine != null)
-            {
-                StopCoroutine(destroyRoutine);
-            }
-        }
-
-        private void OnDestroy()
-        {
-
-        }
-        public IArchitecture GetArchitecture()
-        {
-            return GameArch.Interface;
-        }
-
+        /// <summary>
+        /// 判断是否有敌人的tag
+        /// </summary>
+        /// <param name="other">敌人的碰撞体</param>
+        /// <returns>是否有tag</returns>
         private bool IsEnemyTag(Collider2D other)
         {
             foreach (var bulletDataTargetTag in bulletData.targetTags)
@@ -166,11 +157,15 @@ namespace Bullet
             return false;
         }
 
+        /// <summary>
+        /// 处理命中的敌人
+        /// </summary>
+        /// <param name="other"></param>
         private void HandleEnemyEnter(Collider2D other)
         {
             if (--bulletData.hitNum <= 0)
             {
-                 soPool.Recycle(gameObject);
+                soPool.Recycle(gameObject);
             }
 
             var enemyObj = other.gameObject.GetComponent<EnemyObj>();
@@ -192,6 +187,10 @@ namespace Bullet
         }
 
 
+        public IArchitecture GetArchitecture()
+        {
+            return GameArch.Interface;
+        }
 
 
     }

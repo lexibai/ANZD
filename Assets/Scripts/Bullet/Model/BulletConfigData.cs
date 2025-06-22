@@ -5,22 +5,31 @@ using UnityEngine;
 
 namespace Bullet
 {
+    /// <summary>
+    /// 子弹数据配置，用于生成子弹数据
+    /// </summary>
     public class BulletConfigData
     {
 
-        // 子弹名称
+        /// <summary>
+        /// 子弹名称
+        /// </summary>
         [GUIColor("#00ff00")]
         [LabelText("子弹名称")]
         public string name;
 
-        // 技能基础伤害
+        /// <summary>
+        /// 子弹基础伤害
+        /// </summary>
         [HorizontalGroup("MainGroup", Width = 0.5f)]
         [VerticalGroup("MainGroup/Left")]
         [BoxGroup("MainGroup/Left/基础数据", showLabel: true)]
         [LabelText("基础伤害")]
         public int baseDamage = 10;
 
-        // 子弹移动速度
+        /// <summary>
+        /// 子弹移动速度
+        /// </summary>
         [VerticalGroup("MainGroup/Left")]
         [BoxGroup("MainGroup/Left/基础数据")]
         [LabelText("移动速度")]
@@ -92,6 +101,9 @@ namespace Bullet
         [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
 
+        /// <summary>
+        /// 子弹颜色
+        /// </summary>
         [OdinSerialize]
         [HorizontalGroup("MainGroup", Width = 0.5f)]
         [VerticalGroup("MainGroup/Right")]
@@ -104,6 +116,9 @@ namespace Bullet
             return MemberwiseClone();
         }
 
+        /// <summary>
+        /// 通过此配置生成对应的子弹数据
+        /// </summary>
         public BulletData bulletData
         {
             get

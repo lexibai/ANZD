@@ -179,7 +179,7 @@ namespace Bullet
             // 添加buff
             foreach (var buffItem in bulletData.addBuffs)
             {
-                this.SendCommand<AddBuffCommand>(new AddBuffCommand(enemyObj, buffItem.Key, buffItem.Value));
+                this.SendCommand<AddBuffCommand>(new AddBuffCommand(enemyObj, buffItem.Item1, buffItem.Item2));
             }
 
             // 伤害敌人

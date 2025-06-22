@@ -76,7 +76,7 @@ namespace Bullet
         /// 要对附加对象添加的buff
         /// </summary>
         [OdinSerialize]
-        public Dictionary<BuffData, Type> addBuffs = new();
+        public List<Tuple<BuffData, Type>> addBuffs = new();
 
 
         /// <summary>

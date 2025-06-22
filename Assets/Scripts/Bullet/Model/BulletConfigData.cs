@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Buff;
+using DefaultNamespace;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -16,7 +18,7 @@ namespace Bullet
         /// 子弹名称
         /// </summary>
         [GUIColor("#00ff00")]
-        [LabelText("子弹名称"),HorizontalGroup("title", 0.3f)]
+        [LabelText("子弹名称"), HorizontalGroup("title", 0.3f)]
         public string name;
 
         /// <summary>
@@ -144,6 +146,18 @@ namespace Bullet
                 bulletData.force = force;
                 bulletData.spriteAss = spriteAss;
                 bulletData.color = color;
+                bulletData.addBuffs = new();
+                if (addBuffs != null)
+                {
+                    foreach (var item in addBuffs)
+                    {
+
+                        Type buffType = Type.GetType(item.buffClassName);
+                        Tuple<BuffData, Type> tuple = new Tuple<BuffData, Type>(GameArch.Interface.GetModel<BuffModel>().SelectBuffData(item.buffName), buffType);
+                        bulletData.addBuffs.Add(tuple);
+                    }
+                }
+
                 return bulletData;
             }
         }

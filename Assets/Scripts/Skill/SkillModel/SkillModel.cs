@@ -12,12 +12,12 @@ namespace Model.Skill
 
         protected override void OnInit()
         {
-            this.data = this.GetUtility<BinaryStorageUtility>().Load<SkillModel>(nameof(SkillModel)).data;
+            this.data = this.GetUtility<IStorageUtility>().Load<SkillModel>(nameof(SkillModel)).data;
         }
 
         public void Save()
         {
-            this.GetUtility<BinaryStorageUtility>().Save<SkillModel>(this, nameof(SkillModel), true);
+            this.GetUtility<IStorageUtility>().Save<SkillModel>(this, nameof(SkillModel), true);
         }
     }
 }

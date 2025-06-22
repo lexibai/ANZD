@@ -24,7 +24,7 @@ namespace LogTool
 
         protected override void OnInit()
         {
-            LogConfig logConfig = this.GetUtility<BinaryStorageUtility>().Load<LogConfig>(nameof(LogConfig));
+            LogConfig logConfig = this.GetUtility<IStorageUtility>().Load<LogConfig>(nameof(LogConfig));
             if (logConfig == null)
             {
                 logConfig = new();
@@ -38,7 +38,7 @@ namespace LogTool
 
         public void Save()
         {
-            this.GetUtility<BinaryStorageUtility>().Save<LogConfig>(this, nameof(LogConfig), true);
+            this.GetUtility<IStorageUtility>().Save<LogConfig>(this, nameof(LogConfig), true);
         }
     }
 }

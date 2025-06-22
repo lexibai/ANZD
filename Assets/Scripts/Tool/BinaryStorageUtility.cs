@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Tool
 {
-    public class BinaryStorageUtility : IUtility
+    public class BinaryStorageUtility : IStorageUtility
     {
         public void Save<T>(T data, string fileName, bool config = false)
         {

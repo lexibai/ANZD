@@ -21,12 +21,12 @@ namespace Editor.Tool
         }
 
         [TableList]
-        public List<BulletData> data;
+        public List<BulletConfigData> configData;
 
         protected override void Initialize()
         {
             base.Initialize();
-            data = this.GetModel<BulletModel>().data;
+            configData = this.GetModel<BulletModel>().configData;
         }
 
         public IArchitecture GetArchitecture()
@@ -39,7 +39,7 @@ namespace Editor.Tool
         {
             XLog.Instance.info("保存子弹数据");
             BulletModel bulletModel = this.GetModel<BulletModel>();
-            bulletModel.data = data;
+            bulletModel.configData = configData;
             bulletModel.Save();
         }
     }

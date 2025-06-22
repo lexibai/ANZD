@@ -12,18 +12,21 @@ namespace Bullet
     [Serializable]
     public class BulletModel : AbstractModel
     {
-        [OdinSerialize]
+        [NonSerialized]
         public List<BulletData> data = null;
+        
+        public List<BulletConfigData> configData = null;
         protected override void OnInit()
         {
             BulletModel bulletModel = this.GetUtility<BinaryStorageUtility>().Load<BulletModel>(nameof(BulletModel));
             data = bulletModel.data;
+            configData = bulletModel.configData;
             XLog.Instance.debug($"子弹模型加载完成： {this}");
         }
 
         public void Save()
         {
-            this.GetUtility<BinaryStorageUtility>().Save<BulletModel>(this, nameof(BulletModel));
+            this.GetUtility<BinaryStorageUtility>().Save<BulletModel>(this, nameof(BulletModel), true);
             XLog.Instance.debug($"子弹模型保存完成： {this}");
         }
     }

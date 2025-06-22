@@ -28,6 +28,7 @@ namespace Blood
             bloodPool = new SimpleObjectPool<GameObject>(() =>
             {
                 var obj = GameObject.Instantiate(bloodMap["默认流血"]);
+                obj.SetActive(false);
                 return obj;
             }, obj =>
             {

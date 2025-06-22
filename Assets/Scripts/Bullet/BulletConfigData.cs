@@ -89,7 +89,7 @@ namespace Bullet
         [VerticalGroup("MainGroup/Right")]
         [BoxGroup("MainGroup/Right/视觉效果", showLabel: true)]
         [LabelText("精灵资源")]
-        [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
+        [ValueDropdown("@Const.ConstGet.GetAllConstValues<Bulletsprite>()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
 
         [OdinSerialize]

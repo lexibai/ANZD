@@ -5,14 +5,16 @@ using QAssetBundle;
 
 namespace Const
 {
-    public class ConstGet{
-                // 获取所有常量值的方法
-        public static IEnumerable<string> GetAllQAssetValues()
+    public class ConstGet
+    {
+        // 获取所有常量值的方法
+        public static IEnumerable<string> GetAllConstValues<T>()
         {
-            return typeof(Bulletsprite)
+            return typeof(T)
                 .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
                 .Where(fi => fi.IsLiteral && !fi.IsInitOnly && fi.FieldType == typeof(string))
                 .Select(fi => (string)fi.GetValue(null));
         }
+    
     }
 }

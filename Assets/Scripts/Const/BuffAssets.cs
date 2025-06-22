@@ -1,4 +1,4 @@
-namespace Buff
+namespace Const
 {
     public class BuffAssets
     {

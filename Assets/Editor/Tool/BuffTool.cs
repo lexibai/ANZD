@@ -38,7 +38,7 @@ namespace Editor.Tool
         public void Generate()
         {
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine("namespace Buff");
+            sb.AppendLine("namespace Const");
             sb.AppendLine("{");
             sb.AppendLine("    public class BuffAssets");
             sb.AppendLine("    {");
@@ -48,7 +48,7 @@ namespace Editor.Tool
             }
             sb.AppendLine("    }");
             sb.AppendLine("}");
-            File.WriteAllText("Assets/Scripts/Buff/BuffAssets.cs", sb.ToString());
+            File.WriteAllText("Assets/Scripts/Const/BuffAssets.cs", sb.ToString());
             AssetDatabase.Refresh(); // 刷新资源数据库使新脚本生效
         }
 

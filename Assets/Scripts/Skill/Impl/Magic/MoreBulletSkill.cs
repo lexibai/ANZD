@@ -1,5 +1,7 @@
 ﻿using Actor;
 using Bullet;
+using Const;
+using QFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,15 +11,11 @@ namespace Model.Skill.Impl.Magic
     {
         public override void UseSkill(ActorObj userObj)
         {
+            BulletData bulletData = this.SendQuery(new BulletDataQuery(BulletModelAssets.八方飞弹));
             for (int i = 0; i < 8; i++)
             {
                 //实例化八颗
-                var but = BulletFactory.Instance.CreateBullet(new BulletData()
-                {
-                    canTracking = true, //跟踪
-                    spriteAss = QAssetBundle.Bulletsprite.RHOMBIC, // 菱形
-                    color = Color.green //绿色
-                }, userObj, this);
+                var but = BulletFactory.Instance.CreateBullet(bulletData, userObj, this);
                 var positionValue = Mouse.current.position.value;
                 var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
                 screenToWorldPoint.z = 0;

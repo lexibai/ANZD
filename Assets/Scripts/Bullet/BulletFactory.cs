@@ -54,7 +54,7 @@ namespace Bullet
             but.SetActive(true);
             return bulletObj;
         }
-
+        
         public void RecycleBullet(BulletObj bullet)
         {
             bulletPool.Recycle(bullet.gameObject);

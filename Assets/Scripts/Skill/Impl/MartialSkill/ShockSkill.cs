@@ -3,6 +3,7 @@ using Actor;
 using Buff;
 using Buff.BuffList;
 using Bullet;
+using Const;
 using QFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,18 +19,12 @@ namespace Model.Skill.Impl.MartialSkill
                .Callback(() =>
                {
                    //实例化子弹
-                   var but = BulletFactory.Instance.CreateBullet(new BulletData()
-                   {
-                       color = Color.red,
-                       spriteAss = QAssetBundle.Bulletsprite.ATLAS_50_刀气,
-                       hitNum = 9999,
-                       moveSpeed = 100,
-                       force = 10f,
-                       addBuffs = new Dictionary<BuffData, System.Type>()
+                   BulletData bulletData = this.SendQuery(new BulletDataQuery(BulletModelAssets.冲击波));
+                   bulletData.addBuffs = new Dictionary<BuffData, System.Type>()
                        {
                         {this.GetModel<BuffModel>().SelectBuffData(BuffAssets.炎烬标记) , typeof(MarkBuff)}
-                       }
-                   }, userObj, this);
+                       };
+                   var but = BulletFactory.Instance.CreateBullet(bulletData, userObj, this);
                    var positionValue = Mouse.current.position.value;
                    var screenToWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(positionValue.x, positionValue.y, 0));
                    screenToWorldPoint.z = 0;

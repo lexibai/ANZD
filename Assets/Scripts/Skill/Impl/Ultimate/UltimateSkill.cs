@@ -1,6 +1,7 @@
 using Actor;
 using Buff;
 using Bullet;
+using Const;
 using QFramework;
 using UnityEngine;
 
@@ -27,12 +28,8 @@ namespace Model.Skill.Impl.Ultimate
                 baseBuffObj.TriggerRemoveBuff();
 
                 // 生成子弹
-                BulletObj bulletObj = BulletFactory.Instance.CreateBullet(new BulletData()
-                {
-                    lifeTime = 0.5f,
-                    moveSpeed = 0,
-                    color = new Color(1, 0, 0, 0.3f)
-                }, userObj, this);
+                BulletData bulletData = this.SendQuery(new BulletDataQuery(BulletModelAssets.原地爆炸子弹));
+                BulletObj bulletObj = BulletFactory.Instance.CreateBullet(bulletData, userObj, this);
                 bulletObj.gameObject.transform.localScale = Vector3.one * nowCount * 5f;
                 bulletObj.gameObject.transform.position = position;
 

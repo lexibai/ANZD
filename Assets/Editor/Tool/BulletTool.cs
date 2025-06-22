@@ -8,6 +8,7 @@ using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEditor.ShaderKeywordFilter;
+using UnityEngine;
 
 namespace Editor.Tool
 {
@@ -17,11 +18,11 @@ namespace Editor.Tool
         [MenuItem("安宁之地/工具/子弹工具")]
         public static void Open()
         {
-            GetWindow<BulletTool>();
-
+            BulletTool bulletTool = GetWindow<BulletTool>();
+            bulletTool.minSize = new Vector2(800, 700);
         }
 
-        [HorizontalGroup("数据", order:2), TableList]
+        [HorizontalGroup("数据", order:2)]
         public List<BulletConfigData> configData;
 
         protected override void Initialize()

@@ -9,72 +9,93 @@ namespace Bullet
     {
 
         // 子弹名称
-        [VerticalGroup("基础数据")]
+        [GUIColor("#00ff00")]
         [LabelText("子弹名称")]
         public string name;
 
         // 技能基础伤害
-        [VerticalGroup("基础数据")]
+        [HorizontalGroup("MainGroup", Width = 0.5f)]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据", showLabel: true)]
         [LabelText("基础伤害")]
         public int baseDamage = 10;
 
         // 子弹移动速度
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
         [LabelText("移动速度")]
         public int moveSpeed = 40;
 
         /// <summary>
         /// 子弹存活时间
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("子弹存在时长")]
         public float lifeTime = 5f;
 
         /// <summary>
         /// 子弹是否可以追踪
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("开启追踪")]
         public bool canTracking = false;
 
         /// <summary>
         /// 子弹开始追踪的时间
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("追踪开始时间")]
         public float trackingStartTime = 0.5f;
 
         /// <summary>
         /// 子弹追踪时间
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("追踪时长")]
         public float trackingTime = 1f;
 
         /// <summary>
         /// 子弹追踪速度
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("追踪旋转速度")]
         public float trackingSpeed = 10f;
 
         /// <summary>
         /// 子弹可攻击次数
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("子弹可击中次数")]
         public int hitNum = 1;
 
         /// <summary>
         /// 施加的力
         /// </summary>
-        [VerticalGroup("基础数据")]
+        [VerticalGroup("MainGroup/Left")]
+        [BoxGroup("MainGroup/Left/基础数据")]
+        [LabelText("命中后施加力")]
         public float force = 0;
 
         /// <summary>
         /// 子弹图片资源路径
         /// </summary>
-        [VerticalGroup("视觉效果")]
+        [HorizontalGroup("MainGroup", Width = 0.5f)]
+        [VerticalGroup("MainGroup/Right")]
+        [BoxGroup("MainGroup/Right/视觉效果", showLabel: true)]
         [LabelText("精灵资源")]
         [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
 
         [OdinSerialize]
-        [VerticalGroup("视觉效果")]
+        [HorizontalGroup("MainGroup", Width = 0.5f)]
+        [VerticalGroup("MainGroup/Right")]
+        [BoxGroup("MainGroup/Right/视觉效果", showLabel: true)]
         [LabelText("颜色")]
         public Color color = Color.white;
 

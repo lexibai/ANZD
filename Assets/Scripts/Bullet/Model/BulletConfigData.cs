@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -15,13 +16,13 @@ namespace Bullet
         /// 子弹名称
         /// </summary>
         [GUIColor("#00ff00")]
-        [LabelText("子弹名称")]
+        [LabelText("子弹名称"),HorizontalGroup("title", 0.3f)]
         public string name;
 
         /// <summary>
         /// 子弹基础伤害
         /// </summary>
-        [HorizontalGroup("MainGroup", Width = 0.5f)]
+        [HorizontalGroup("MainGroup", Width = 0.33f)]
         [VerticalGroup("MainGroup/Left")]
         [BoxGroup("MainGroup/Left/基础数据", showLabel: true)]
         [LabelText("基础伤害")]
@@ -94,9 +95,9 @@ namespace Bullet
         /// <summary>
         /// 子弹图片资源路径
         /// </summary>
-        [HorizontalGroup("MainGroup", Width = 0.5f)]
-        [VerticalGroup("MainGroup/Right")]
-        [BoxGroup("MainGroup/Right/视觉效果", showLabel: true)]
+        [HorizontalGroup("MainGroup", Width = 0.33f)]
+        [VerticalGroup("MainGroup/Center")]
+        [BoxGroup("MainGroup/Center/视觉效果", showLabel: true)]
         [LabelText("精灵资源")]
         [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
@@ -105,11 +106,18 @@ namespace Bullet
         /// 子弹颜色
         /// </summary>
         [OdinSerialize]
-        [HorizontalGroup("MainGroup", Width = 0.5f)]
-        [VerticalGroup("MainGroup/Right")]
-        [BoxGroup("MainGroup/Right/视觉效果", showLabel: true)]
+        [HorizontalGroup("MainGroup", Width = 0.33f)]
+        [VerticalGroup("MainGroup/Center")]
+        [BoxGroup("MainGroup/Center/视觉效果", showLabel: true)]
         [LabelText("颜色")]
         public Color color = Color.white;
+
+
+        [HorizontalGroup("MainGroup", Width = 0.33f)]
+        [VerticalGroup("MainGroup/Right")]
+        [BoxGroup("MainGroup/Right/添加buff", showLabel: true)]
+        [LabelText("添加buff")]
+        public List<BulletAddBuffConfigInfo> addBuffs = new();
 
         public object Clone()
         {

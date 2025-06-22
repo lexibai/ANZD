@@ -32,9 +32,11 @@ namespace Bullet
                 Object.Destroy(o.GetComponent<Collider2D>());
 
                 //重置变换
-                o.transform.localScale = Vector3.one;
-                o.transform.position = Vector3.zero;
-                o.transform.rotation = Quaternion.identity;
+                o.transform.Identity();
+                var bulletObj = o.GetComponent<BulletObj>();
+                bulletObj.StopCoroutine(bulletObj.coroutine);
+
+                
 
                 o.SetActive(false);
             }, 50);

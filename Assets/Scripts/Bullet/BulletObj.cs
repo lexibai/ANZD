@@ -4,8 +4,10 @@ using Actor;
 using Buff.Command;
 using Combat.Command;
 using DefaultNamespace;
+using LogTool;
 using Model.Skill;
 using QFramework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Bullet
@@ -38,6 +40,11 @@ namespace Bullet
         [NonSerialized]
         public SimpleObjectPool<GameObject> soPool;
 
+        /// <summary>
+        /// 管理延时回收的协程，由子弹工厂回收时停止
+        /// </summary>
+        public Coroutine coroutine = null;
+
         private void Awake()
         {
             var spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
@@ -46,13 +53,8 @@ namespace Bullet
 
         private void OnEnable()
         {
-            ActionKit.Delay(bulletData.lifeTime, () =>
-            {
-                if (gameObject.activeSelf)
-                {
-                    soPool.Recycle(gameObject);
-                }
-            }).Start(this);
+            coroutine = StartCoroutine(DelayRecycle());
+
             hitCollider = this.gameObject.GetComponent<Collider2D>();
             if (hitCollider != null)
             {
@@ -184,6 +186,12 @@ namespace Bullet
             this.SendCommand<DamageCommand>(
                 new DamageCommand(attacker, other.gameObject.GetComponent<ActorObj>(), skill, this)
             );
+        }
+
+        public IEnumerator DelayRecycle()
+        {
+            yield return new WaitForSeconds(bulletData.lifeTime);
+            soPool.Recycle(gameObject);
         }
 
 

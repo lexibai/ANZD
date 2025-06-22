@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Actor;
 using Buff.Command;
 using Combat.Command;
@@ -36,7 +37,11 @@ namespace Bullet
         /// </summary>
         public BulletData bulletData = new BulletData();
 
-
+        /// <summary>
+        /// 来源对象池
+        /// </summary>
+        [NonSerialized]
+        public SimpleObjectPool<GameObject> soPool;
 
         private void Awake()
         {
@@ -128,8 +133,7 @@ namespace Bullet
             yield return new WaitForSeconds(delay);
             if (gameObject != null)
             {
-                //Destroy(gameObject);
-                BulletFactory.Instance.RecycleBullet(this);
+                soPool.Recycle(gameObject);
             }
         }
 
@@ -166,7 +170,7 @@ namespace Bullet
         {
             if (--bulletData.hitNum <= 0)
             {
-                BulletFactory.Instance.RecycleBullet(this);
+                 soPool.Recycle(gameObject);
             }
 
             var enemyObj = other.gameObject.GetComponent<EnemyObj>();

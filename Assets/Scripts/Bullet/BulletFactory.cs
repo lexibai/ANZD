@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Bullet
 {
+    /// <summary>
+    /// 子弹工厂：
+    /// - 可以生产子弹数据
+    /// - 可以生产子弹实体
+    /// </summary>
     public class BulletFactory : Singleton<BulletFactory>
     {
         private GameObject bulletPrefab;
@@ -44,7 +49,7 @@ namespace Bullet
             bulletObj.skill = skill?.Clone() as Skill;
             bulletObj.attacker = attacker;
             bulletObj.bulletData = data.Clone() as BulletData;
-
+            bulletObj.soPool = bulletPool;
             // 子弹实体设置, 必须先设置精灵图片再设置碰撞器，否则碰撞会使用上次的精灵碰撞
             but.transform.position = ReferenceEquals(attacker, null) ? Vector3.zero : attacker.GetFireTransform().position;
             var sprite = but.GetComponent<SpriteRenderer>();
@@ -54,7 +59,7 @@ namespace Bullet
             but.SetActive(true);
             return bulletObj;
         }
-        
+
         public void RecycleBullet(BulletObj bullet)
         {
             bulletPool.Recycle(bullet.gameObject);

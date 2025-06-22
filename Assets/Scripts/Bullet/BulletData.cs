@@ -10,6 +10,11 @@ namespace Bullet
     [Serializable]
     public class BulletData : ICloneable
     {
+        // 子弹名称
+        [VerticalGroup("基础数据")]
+        [LabelText("子弹名称")]
+        public string name;
+
         // 技能基础伤害
         [VerticalGroup("基础数据")]
         [LabelText("基础伤害")]

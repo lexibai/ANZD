@@ -5,9 +5,14 @@ using UnityEngine;
 
 namespace Bullet
 {
-    [Serializable]
     public class BulletConfigData
     {
+
+        // 子弹名称
+        [VerticalGroup("基础数据")]
+        [LabelText("子弹名称")]
+        public string name;
+
         // 技能基础伤害
         [VerticalGroup("基础数据")]
         [LabelText("基础伤害")]
@@ -68,7 +73,7 @@ namespace Bullet
         [ValueDropdown("@Const.ConstGet.GetAllQAssetValues()")]
         public string spriteAss = QAssetBundle.Bulletsprite.CIRCLE;
 
-        [NonSerialized, OdinSerialize]
+        [OdinSerialize]
         [VerticalGroup("视觉效果")]
         [LabelText("颜色")]
         public Color color = Color.white;

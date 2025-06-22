@@ -18,15 +18,14 @@ namespace Bullet
         public List<BulletConfigData> configData = null;
         protected override void OnInit()
         {
-            BulletModel bulletModel = this.GetUtility<BinaryStorageUtility>().Load<BulletModel>(nameof(BulletModel));
-            data = bulletModel.data;
+            BulletModel bulletModel = this.GetUtility<IStorageUtility>().Load<BulletModel>(nameof(BulletModel));
             configData = bulletModel.configData;
             XLog.Instance.debug($"子弹模型加载完成： {this}");
         }
 
         public void Save()
         {
-            this.GetUtility<BinaryStorageUtility>().Save<BulletModel>(this, nameof(BulletModel), true);
+            this.GetUtility<IStorageUtility>().Save<BulletModel>(this, nameof(BulletModel), true);
             XLog.Instance.debug($"子弹模型保存完成： {this}");
         }
     }

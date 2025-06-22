@@ -22,9 +22,6 @@ namespace DefaultNamespace
                 BloodFactory.Instance.Init();
             }
 
-            
-
-
             //buff模型
             RegisterModel<BuffModel>(new BuffModel());
             //技能模型

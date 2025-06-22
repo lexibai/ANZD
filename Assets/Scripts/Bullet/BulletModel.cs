@@ -14,13 +14,23 @@ namespace Bullet
     {
         [NonSerialized]
         public List<BulletData> data = null;
-        
+
         public List<BulletConfigData> configData = null;
         protected override void OnInit()
         {
             BulletModel bulletModel = this.GetUtility<IStorageUtility>().Load<BulletModel>(nameof(BulletModel));
             configData = bulletModel.configData;
             XLog.Instance.debug($"子弹模型加载完成： {this}");
+
+            #region 
+            data = new List<BulletData>();
+            foreach (var cfgItem in configData)
+            {
+                BulletData bulletData = cfgItem.bulletData;
+                data.Add(bulletData);
+                XLog.Instance.debug($"加载子弹： {JsonUtility.ToJson(bulletData)}");
+            }
+            #endregion
         }
 
         public void Save()

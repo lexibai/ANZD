@@ -83,25 +83,26 @@ namespace Bullet
             return MemberwiseClone();
         }
 
-        // public BulletData bulletData
-        // {
-        //     get
-        //     {
-        //         BulletData bulletData = new BulletData();
-        //         bulletData.baseDamage = baseDamage;
-        //         bulletData.moveSpeed = moveSpeed;
-        //         bulletData.lifeTime = lifeTime;
-        //         bulletData.canTracking = canTracking;
-        //         bulletData.trackingStartTime = trackingStartTime;
-        //         bulletData.trackingTime = trackingTime;
-        //         bulletData.trackingSpeed = trackingSpeed;
-        //         bulletData.hitNum = hitNum;
-        //         bulletData.force = force;
-        //         bulletData.spriteAss = spriteAss;
-        //         bulletData.color = color;
-        //         return bulletData;
-        //     }
-        // }
+        public BulletData bulletData
+        {
+            get
+            {
+                BulletData bulletData = new BulletData();
+                bulletData.name = name;
+                bulletData.baseDamage = baseDamage;
+                bulletData.moveSpeed = moveSpeed;
+                bulletData.lifeTime = lifeTime;
+                bulletData.canTracking = canTracking;
+                bulletData.trackingStartTime = trackingStartTime;
+                bulletData.trackingTime = trackingTime;
+                bulletData.trackingSpeed = trackingSpeed;
+                bulletData.hitNum = hitNum;
+                bulletData.force = force;
+                bulletData.spriteAss = spriteAss;
+                bulletData.color = color;
+                return bulletData;
+            }
+        }
 
     }
 }

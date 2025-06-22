@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Bullet;
 using DefaultNamespace;
 using LogTool;
@@ -20,7 +21,7 @@ namespace Editor.Tool
 
         }
 
-        [TableList]
+        [HorizontalGroup("数据", order:2), TableList]
         public List<BulletConfigData> configData;
 
         protected override void Initialize()
@@ -34,13 +35,31 @@ namespace Editor.Tool
             return GameArch.Interface;
         }
 
-        [Button("保存")]
+        [HorizontalGroup("操作", order:1),Button("保存")]
         public void Save()
         {
             XLog.Instance.info("保存子弹数据");
             BulletModel bulletModel = this.GetModel<BulletModel>();
             bulletModel.configData = configData;
             bulletModel.Save();
+        }
+
+        [HorizontalGroup("操作", order:1),Button("生成常量")]
+        public void Generate()
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"namespace Const");
+            sb.AppendLine("{");
+            sb.AppendLine($"    public class {nameof(BulletModel)}Assets");
+            sb.AppendLine("    {");
+            foreach (var item in configData)
+            {
+                sb.AppendLine($"        public const string {item.name} = \"{item.name}\";");
+            }
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+            File.WriteAllText($"Assets/Scripts/Const/{nameof(BulletModel)}Assets.cs", sb.ToString());
+            AssetDatabase.Refresh(); // 刷新资源数据库使新脚本生效
         }
     }
 }

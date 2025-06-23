@@ -21,18 +21,18 @@ namespace Editor.Tool
         }
         
         [TableList]
-        public List<SkillData> skillDatas = new List<SkillData>();
+        public List<SkillConfigData> skillConfigDatas = new List<SkillConfigData>();
 
         [ButtonGroup("操作"), Button("加载")]
         public void Load()
         {
-            skillDatas = this.GetModel<SkillModel>().data;
+            skillConfigDatas = this.GetModel<SkillModel>().configDatas;
         }
 
         [ButtonGroup("操作"), Button("保存")]
         public void Save()
         {
-            this.GetModel<SkillModel>().data = skillDatas;
+            this.GetModel<SkillModel>().configDatas = skillConfigDatas;
             this.GetModel<SkillModel>().Save();
         }
         
@@ -44,7 +44,7 @@ namespace Editor.Tool
             sb.AppendLine("{");
             sb.AppendLine($"    public class {nameof(SkillModel)}Assets");
             sb.AppendLine("    {");
-            foreach (var skillData in skillDatas)
+            foreach (var skillData in skillConfigDatas)
             {
                 sb.AppendLine($"        public const string {skillData.literalQuantity} = \"{skillData.literalQuantity}\";");
             }

@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, IController
 {
     // 输入控制类的实例  
-    private PlayerAction playerAction;
+    public PlayerAction playerAction;
 
     /// <summary>
     /// 武器的ik节点

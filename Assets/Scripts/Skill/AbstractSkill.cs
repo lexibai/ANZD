@@ -1,6 +1,8 @@
 ﻿using Actor;
 using DefaultNamespace;
+using LogTool;
 using QFramework;
+using UnityEngine.InputSystem;
 
 namespace Model.Skill
 {
@@ -32,7 +34,13 @@ namespace Model.Skill
         /// <returns></returns>
         public virtual bool CanUse(ActorObj userObj)
         {
-
+            PlayerController playerController = userObj?.GetComponent<PlayerController>();
+            float v = playerController.playerAction.FindAction(skillData.bindKey).ReadValue<float>();
+            if (playerController.playerAction.FindAction(skillData.bindKey).IsPressed())
+            {
+                XLog.Instance.debug($"{skillData.name}技能检测到{skillData.bindKey}按下");
+            }
+            XLog.Instance.debug($"{skillData.name}技能获得值：{v}");
             return true;
         }
     }

@@ -15,6 +15,13 @@ namespace Model.Skill
         public string name;
 
         /// <summary>
+        /// 技能绑定的按键
+        /// </summary>
+        [ValueDropdown("@Const.ConstGet.GetAllPublicFieldNames<PlayerAction.DefMapsActions>()")]
+        [LabelText("绑定按键")]
+        public string bindKey;
+
+        /// <summary>
         /// 技能字面量
         /// </summary>
         [LabelText("技能字面量")]

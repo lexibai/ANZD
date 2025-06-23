@@ -44,5 +44,15 @@ namespace Const
             return items;
         }
 
+        /// <summary>
+        /// 获取结构体或类中所有公共实例字段的名称
+        /// </summary>
+        public static IEnumerable<string> GetAllPublicFieldNames<T>()
+        {
+            return typeof(T)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Select(pi => pi.Name);
+        }
+
     }
 }

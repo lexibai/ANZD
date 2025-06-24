@@ -14,8 +14,7 @@ namespace SkillModule.Condition
     [DisplayName("默认条件器")]
     public class DefSkillCondition : SkillCondition
     {
-        [LabelText("默认数据")]
-        public int defData = 10;
+
         public virtual bool Check(Skill skill, bool prevCheck)
         {
             LoadFromBlackboard(skill);

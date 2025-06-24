@@ -44,6 +44,32 @@ namespace Const
             return items;
         }
 
+        public static IEnumerable<ValueDropdownItem> GetAllClassName<T>()
+        {
+            var baseType = typeof(T);
+            var assembly = Assembly.GetExecutingAssembly();
+            var types = assembly.GetTypes();
+            var items = new List<ValueDropdownItem>();
+            items.Add(new ValueDropdownItem("默认", baseType.FullName));
+
+            foreach (var type in types)
+            {
+                if (type != baseType &&
+                    type.IsClass &&
+                    !type.IsAbstract &&
+                    baseType.IsAssignableFrom(type))
+                {
+                    // 获取 DisplayName 特性
+                    var displayNameAttr = type.GetCustomAttribute<DisplayNameAttribute>();
+                    var name = displayNameAttr?.DisplayName ?? type.Name;
+
+                    items.Add(new ValueDropdownItem(name, type.FullName));
+                }
+            }
+
+            return items;
+        }
+
         /// <summary>
         /// 获取结构体或类中所有公共实例字段的名称
         /// </summary>

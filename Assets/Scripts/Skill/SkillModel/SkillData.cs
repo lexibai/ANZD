@@ -1,5 +1,7 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using SkillModule.Condition;
 
 namespace Model.Skill
 {
@@ -37,6 +39,18 @@ namespace Model.Skill
         /// </summary>
         [LabelText("基础伤害")]
         public int baseDamage = 10;
+
+        /// <summary>
+        /// 技能条件器
+        /// </summary>
+        public List<SkillCondition> skillConditions;
+
+        /// <summary>
+        /// 黑板数据
+        /// </summary>
+        [LabelText("技能黑板数据")]
+        public Dictionary<string, object> blackboard = new();
+
 
 
         public object Clone()

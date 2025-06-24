@@ -30,14 +30,18 @@ namespace Combat
         {
             CombatTimer.Instance.OnUpdate += () =>
             {
-                foreach (var skill in skillsOnCd.ToArray())
+                if (Application.isPlaying)
                 {
-                    skill.nowCd -= CombatTimer.Instance.deltaTime;
-                    if (skill.nowCd <= 0)
+                    foreach (var skill in skillsOnCd.ToArray())
                     {
-                        skillsOnCd.Remove(skill);
+                        skill.nowCd -= CombatTimer.Instance.deltaTime;
+                        if (skill.nowCd <= 0)
+                        {
+                            skillsOnCd.Remove(skill);
+                        }
                     }
                 }
+
             };
         }
 

@@ -98,11 +98,16 @@ namespace Combat
         /// <param name="skill"></param>
         public bool CheckSkillCanUse(ActorObj userObj, Skill skill)
         {
+            bool v = skill.CanUse(userObj);
+            if (!v)
+            {
+                return false;
+            }
             if (skill.nowCd > 0)
             {
                 return false;
             }
-            return skill.CanUse(userObj);
+            return v;
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
+using Actor;
 using Model.Skill;
+using UnityEngine.InputSystem;
 
 namespace SkillModule.Condition
 {
@@ -7,6 +9,6 @@ namespace SkillModule.Condition
     /// </summary>
     public interface SkillCondition
     {
-        bool Check(Skill skill, bool prevCheck);
+        bool Check(ActorObj userObj, Skill skill, bool prevCheck);
     }
 }

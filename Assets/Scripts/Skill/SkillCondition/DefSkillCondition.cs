@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using Actor;
 using Model.Skill;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 
 namespace SkillModule.Condition
 {
@@ -15,7 +17,7 @@ namespace SkillModule.Condition
     public class DefSkillCondition : SkillCondition
     {
 
-        public virtual bool Check(Skill skill, bool prevCheck)
+        public virtual bool Check(ActorObj userObj, Skill skill, bool prevCheck)
         {
             LoadFromBlackboard(skill);
             return true;

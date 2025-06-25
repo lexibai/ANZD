@@ -34,17 +34,19 @@ namespace Model.Skill
         /// <returns></returns>
         public virtual bool CanUse(ActorObj userObj)
         {
-            // PlayerController playerController = userObj?.GetComponent<PlayerController>();
-            // float v = playerController.playerAction.FindAction(skillData.bindKey).ReadValue<float>();
-            // if (playerController.playerAction.FindAction(skillData.bindKey).IsPressed())
-            // {
-            //     XLog.Instance.debug($"{skillData.name}技能检测到{skillData.bindKey}按下");
-            // }
-            // XLog.Instance.debug($"{skillData.name}技能获得值：{v}");
+            #region 日志打印
+            PlayerController playerController = userObj?.GetComponent<PlayerController>();
+            float v = playerController.playerAction.FindAction(skillData.bindKey).ReadValue<float>();
+            if (playerController.playerAction.FindAction(skillData.bindKey).IsPressed())
+            {
+                XLog.Instance.debug($"{skillData.name}技能检测到{skillData.bindKey}按下");
+            }
+            XLog.Instance.debug($"{skillData.name}技能获得值：{v}");
+            #endregion
             bool prepSuc = true;
             foreach (var item in skillData.skillConditions)
             {
-                prepSuc = item.Check(this, prepSuc);
+                prepSuc = item.Check(userObj, this, prepSuc);
             }
             return prepSuc;
         }

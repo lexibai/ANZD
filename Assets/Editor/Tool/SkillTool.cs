@@ -11,32 +11,34 @@ using UnityEngine.Serialization;
 
 namespace Editor.Tool
 {
-    public class SkillTool:OdinEditorWindow, IController
+    public class SkillTool : OdinEditorWindow, IController
     {
         [MenuItem("安宁之地/工具/技能工具")]
         public static void Open()
         {
             GetWindow<SkillTool>().Show();
-            
+
         }
         
-        [TableList]
+        [GUIColor("#cccccc")]
+        [VerticalGroup("数据", order: 1)]
         public List<SkillConfigData> skillConfigDatas = new List<SkillConfigData>();
 
-        [ButtonGroup("操作"), Button("加载")]
-        public void Load()
+        protected override void Initialize()
         {
+            base.Initialize();
             skillConfigDatas = this.GetModel<SkillModel>().configDatas;
         }
 
-        [ButtonGroup("操作"), Button("保存")]
+
+        [ButtonGroup("操作", order: 0), Button("保存", ButtonSizes.Large)]
         public void Save()
         {
             this.GetModel<SkillModel>().configDatas = skillConfigDatas;
             this.GetModel<SkillModel>().Save();
         }
-        
-        [ButtonGroup("操作"), Button("生成常量")]
+
+        [ButtonGroup("操作", order: 0), Button("生成常量", ButtonSizes.Large)]
         public void Generate()
         {
             var sb = new System.Text.StringBuilder();

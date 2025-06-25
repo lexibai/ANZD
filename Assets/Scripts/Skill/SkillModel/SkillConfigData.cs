@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using QFramework;
 using Sirenix.OdinInspector;
 using SkillModule.Condition;
 
@@ -11,17 +10,26 @@ namespace Model.Skill
 
     public class SkillConfigData : ICloneable
     {
+        [HorizontalGroup("技能数据")]
+
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         public int id;
+
 
         /// <summary>
         /// 技能名称
         /// </summary>
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         [LabelText("技能名称")]
         public string name;
 
         /// <summary>
         /// 技能绑定的按键
         /// </summary>
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         [ValueDropdown("@Const.ConstGet.GetAllPublicFieldNames<PlayerAction.DefMapsActions>()")]
         [LabelText("绑定按键")]
         public string bindKey;
@@ -29,30 +37,40 @@ namespace Model.Skill
         /// <summary>
         /// 技能字面量
         /// </summary>
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         [LabelText("技能字面量")]
         public string literalQuantity;
 
         /// <summary>
         /// 技能冷却时间
         /// </summary>
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         [LabelText("技能冷却时间")]
         public float cd;
 
         /// <summary>
         /// 基础伤害
         /// </summary>
+        [GUIColor("#4A90E2")]
+        [VerticalGroup("技能数据/基础数据")]
         [LabelText("基础伤害")]
         public int baseDamage = 10;
 
         /// <summary>
         /// 技能条件器
         /// </summary>
+        [GUIColor("#ffcc33")]
+        [VerticalGroup("技能数据/技能条件器")]
         [LabelText("技能条件器")]
         public List<AddSkillConditionInfo> skillConditions = new List<AddSkillConditionInfo>();
 
         /// <summary>
         /// 黑板数据
         /// </summary>
+        [GUIColor("#7ED321")]
+        [VerticalGroup("技能数据/条件器黑板数据")]
         [LabelText("技能黑板数据")]
         public Dictionary<string, object> blackboard = new Dictionary<string, object>();
 
@@ -75,7 +93,10 @@ namespace Model.Skill
             return skillData;
         }
 
-        [Button("初始化黑板")]
+
+        [GUIColor("#abcdefee")]
+        [HorizontalGroup("操作", width: 0.33f), ButtonGroup("操作/技能操作")]
+        [Button("初始化黑板", ButtonSizes.Large)]
         public void InitBlackboard()
         {
             blackboard = new Dictionary<string, object>();
@@ -160,4 +181,7 @@ namespace Model.Skill
             return MemberwiseClone();
         }
     }
+    
+
+    
 }

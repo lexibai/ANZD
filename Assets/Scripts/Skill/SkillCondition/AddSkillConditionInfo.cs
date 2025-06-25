@@ -9,6 +9,7 @@ namespace SkillModule.Condition
     /// </summary>
     public class AddSkillConditionInfo
     {
+        [GUIColor("#dd33cc")]
         [LabelText("条件器")]
         [ValueDropdown("@Const.ConstGet.GetAllClassName<DefSkillCondition>()")]
         public string className;

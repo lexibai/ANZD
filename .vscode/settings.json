@@ -75,5 +75,5 @@
         "*.sln": "*.csproj"
     },
     "dotnet.defaultSolution": "ANZD.sln",
-    "commentTranslate.hover.enabled": false
+    "commentTranslate.hover.enabled": false,
 }

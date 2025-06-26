@@ -5,6 +5,7 @@ using Bullet;
 using DefaultNamespace;
 using Model.Skill;
 using QFramework;
+using SkillModule;
 using UnityEngine;
 
 namespace Actor
@@ -98,8 +99,15 @@ namespace Actor
             }
         }
 
+        public virtual void UseAtkSkill(SkillType skillType)
+        {
+        }
 
+
+        // 向外部提供开火点
         public abstract Transform GetFireTransform();
+
+        // 向外部提供面朝向
         public abstract Transform GetFaceLookAtTransform();
     }
 }

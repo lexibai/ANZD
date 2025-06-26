@@ -173,6 +173,8 @@ public class PlayerController : MonoBehaviour, IController
         movement = readValue.normalized;
     }
 
+
+    #region 技能控制
     public void FireStart(InputAction.CallbackContext ctx)
     {
         fireSwitch = true;
@@ -181,9 +183,9 @@ public class PlayerController : MonoBehaviour, IController
     public void Fire()
     {
         if (fireSwitch)
-            this.SendCommand<bool>(new UseSkillCommand(playobj, fireSkill));
-    }
+            playobj.UseAtkSkill(SkillModule.SkillType.Fire);
 
+    }
     public void FireEnd(InputAction.CallbackContext ctx)
     {
         fireSwitch = false;
@@ -191,31 +193,32 @@ public class PlayerController : MonoBehaviour, IController
 
     private void MartialSkill(InputAction.CallbackContext context)
     {
-        this.SendCommand<bool>(new UseSkillCommand(playobj, martialSkill));
+        playobj.UseAtkSkill(SkillModule.SkillType.MartialSkill);
     }
 
     public void MoveSkill(InputAction.CallbackContext ctx)
     {
-        this.SendCommand<bool>(new UseSkillCommand(playobj, moveSkill));
+        playobj.UseAtkSkill(SkillModule.SkillType.Move);
     }
 
     public void MagicSkill(InputAction.CallbackContext ctx)
     {
-        this.SendCommand<bool>(new UseSkillCommand(playobj, magicSkill));
+        playobj.UseAtkSkill(SkillModule.SkillType.Magic);
     }
 
     public void AtkSkill(InputAction.CallbackContext ctx)
     {
-        this.SendCommand<bool>(new UseSkillCommand(playobj, atkSkill));
+        playobj.UseAtkSkill(SkillModule.SkillType.Atk);
     }
 
     public void UltimateSkill(InputAction.CallbackContext ctx)
     {
-        this.SendCommand<bool>(new UseSkillCommand(playobj, ultimateSkill));
+        playobj.UseAtkSkill(SkillModule.SkillType.Ultimeta);
     }
 
     public IArchitecture GetArchitecture()
     {
         return GameArch.Interface;
     }
+    #endregion
 }
